@@ -11,8 +11,8 @@ function preload() {
   // sound = loadSound('assets/stomper_reggae_bit.mp3');
   // sound = loadSound('assets/aerodynamic.mp3');
   // sound = loadSound('assets/Voyager.mp3');
-  // sound = loadSound('assets/nirvana.flac');
-  sound = loadSound("assets/Blow Me Away.mp3");
+  sound = loadSound("assets/nirvana.flac");
+  // sound = loadSound("assets/Blow Me Away.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
 }
@@ -33,10 +33,15 @@ function setup() {
   vis.add(new WavePattern());
   vis.add(new Needles());
   vis.add(new Shapes());
+  vis.add(new Test());
 }
 
 function draw() {
   background(0);
+
+  //camera controll
+  orbitControl();
+
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
   vis.selectedVisual.draw();
