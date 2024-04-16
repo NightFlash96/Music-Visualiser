@@ -6,12 +6,20 @@ var vis = null;
 var sound = null;
 //variable for p5 fast fourier transform
 var fourier;
+//camera
+let cam = {
+  angle: 0,
+  radius: 100,
+  rotationSpeed: 0.03,
+  distance: 500,
+  altitude: 20,
+};
 
 function preload() {
-  // sound = loadSound('assets/stomper_reggae_bit.mp3');
-  // sound = loadSound('assets/aerodynamic.mp3');
-  // sound = loadSound('assets/Voyager.mp3');
-  sound = loadSound("assets/nirvana.flac");
+  // sound = loadSound("assets/stomper_reggae_bit.mp3");
+  // sound = loadSound("assets/aerodynamic.mp3");
+  sound = loadSound("assets/Voyager.mp3");
+  // sound = loadSound("assets/nirvana.flac");
   // sound = loadSound("assets/Blow Me Away.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
@@ -23,7 +31,7 @@ function setup() {
   background(0);
   textFont(font);
   controls = new ControlsAndInput();
-
+  normalMaterial();
   //instantiate the fft object
   fourier = new p5.FFT();
 
@@ -32,7 +40,7 @@ function setup() {
   vis.add(new Spectrum());
   vis.add(new WavePattern());
   vis.add(new Needles());
-  vis.add(new Shapes());
+  vis.add(new Shapes(cam));
   vis.add(new Test());
 }
 
