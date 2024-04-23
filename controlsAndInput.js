@@ -3,6 +3,9 @@
 function ControlsAndInput() {
   this.menuDisplayed = false;
 
+  //create an array amplitude values from the fft.
+  // var spectrum = fourier.analyze();
+
   //playback button displayed in the top left of the screen
   this.playbackButton = new PlaybackButton();
 
@@ -44,16 +47,38 @@ function ControlsAndInput() {
     this.playbackButton.draw();
     //only draw the menu if menu displayed is set to true.
     if (this.menuDisplayed) {
-      text("Select a visualisation:", 100, 30);
+      this.visSelect();
       this.menu();
     }
+    pop();
+  };
+
+  // Calculate camera position based on angle and radius
+  let camX = cam.radius * cos(cam.angle);
+  let camY = cam.radius * sin(cam.angle) - cam.altitude;
+  let camZ = cam.distance * sin(cam.angle) + cam.distance * 2;
+
+  // Update camera position and look at the center of the scene
+  // camera(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
+
+  for (var i = 0; i < width / 4; i++) {
+    // Increment angle for rotation
+    cam.angle += i;
+  }
+
+  this.visSelect = function () {
+    push();
+    textSize(68);
+    fill(1 + i * 15, 50, 255);
+    translate(camX, camY, camZ);
+    text("Select a visualisation:", 25, 50);
     pop();
   };
 
   this.menu = function () {
     //draw out menu items for each visualisation
     for (i = 0; i < 5; i++) {
-      text(i + 1 + ": " + vis.visuals[i].name, 100, 70 + i * 40);
+      text(i + 1 + ": " + vis.visuals[i].name, 25, 100 + i * 40);
     }
   };
 }

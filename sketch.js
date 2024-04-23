@@ -15,12 +15,17 @@ let cam = {
   altitude: 20,
 };
 
+var mic;
+var amplitude;
+var prevLevels = new Array(60);
+
 function preload() {
   // sound = loadSound("assets/stomper_reggae_bit.mp3");
   // sound = loadSound("assets/aerodynamic.mp3");
-  sound = loadSound("assets/Voyager.mp3");
+  // sound = loadSound("assets/Voyager.mp3");
   // sound = loadSound("assets/nirvana.flac");
   // sound = loadSound("assets/Blow Me Away.mp3");
+  sound = loadSound("assets/Goat.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
 }
@@ -35,12 +40,21 @@ function setup() {
   //instantiate the fft object
   fourier = new p5.FFT();
 
+  mic = new p5.AudioIn();
+  mic.start();
+
+  amplitude = new p5.Amplitude();
+  amplitude.setInput(sound);
+  amplitude.smooth(0.6);
+
   //create a new visualisation container and add visualisations
   vis = new Visualisations();
   vis.add(new Spectrum());
+  vis.add(new Spectrum2());
   vis.add(new WavePattern());
   vis.add(new Needles());
-  vis.add(new Shapes(cam));
+  vis.add(new Shapes());
+  vis.add(new Shapes2());
   vis.add(new Test());
 }
 

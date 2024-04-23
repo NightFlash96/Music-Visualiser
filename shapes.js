@@ -24,7 +24,7 @@ function Shapes() {
     let camZ = cam.distance * sin(cam.angle) + cam.distance * 2;
 
     // Update camera position and look at the center of the scene
-    camera(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
+    camera(camX, camY, camZ, 0, 0, 0, 0, 1, 1);
 
     for (var i = 0; i < width / 4; i++) {
       // Increment angle for rotation
@@ -34,6 +34,11 @@ function Shapes() {
     // noFill();
     stroke(0);
     sphere(200);
+
+    push();
+    translate(500, 0, 0);
+    sphere(50);
+    pop();
 
     // for (var i = 0; i < width / 4; i++) {
     //   // console.log(energy);
