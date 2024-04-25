@@ -22,10 +22,10 @@ var prevLevels = new Array(60);
 function preload() {
   // sound = loadSound("assets/stomper_reggae_bit.mp3");
   // sound = loadSound("assets/aerodynamic.mp3");
-  // sound = loadSound("assets/Voyager.mp3");
+  sound = loadSound("assets/Voyager.mp3");
   // sound = loadSound("assets/nirvana.flac");
   // sound = loadSound("assets/Blow Me Away.mp3");
-  sound = loadSound("assets/Goat.mp3");
+  // sound = loadSound("assets/Goat.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
 }

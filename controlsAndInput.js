@@ -12,10 +12,10 @@ function ControlsAndInput() {
   //make the window fullscreen or revert to windowed
   this.mousePressed = function () {
     if (!this.playbackButton.hitCheck()) {
-      fullscreen(true);
-      if (fullscreen) {
-        fullscreen(false);
-      }
+      //fullscreen(true);
+      //if (fullscreen) {
+      //  fullscreen(false);
+      //}
     }
     //check if the playback button has been clicked
     //if not make the visualisation fullscreen
