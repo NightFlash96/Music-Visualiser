@@ -26,7 +26,8 @@ function preload() {
   // sound = loadSound("assets/nirvana.flac");
   // sound = loadSound("assets/Blow Me Away.mp3");
   // sound = loadSound("assets/Goat.mp3");
-  sound = loadSound("assets/dial_up.mp3");
+  // sound = loadSound("assets/dial_up.mp3");
+  sound = loadSound("assets/odyssey.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
 }
@@ -36,7 +37,6 @@ function setup() {
   canvas.position(0, 0);
   background(0);
   textFont(font);
-  controls = new ControlsAndInput();
   normalMaterial();
   //instantiate the fft object
   fourier = new p5.FFT();
@@ -49,7 +49,9 @@ function setup() {
   amplitude.smooth(0.6);
 
   //create a new visualisation container and add visualisations
+  controls = new ControlsAndInput();
   vis = new Visualisations();
+  vis.add(new Title());
   vis.add(new Spectrum());
   vis.add(new Spectrum2());
   vis.add(new WavePattern());
@@ -57,6 +59,7 @@ function setup() {
   vis.add(new Shapes());
   vis.add(new Shapes2());
   vis.add(new Test());
+  vis.add(new Cubes());
 }
 
 function draw() {

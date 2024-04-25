@@ -3,19 +3,20 @@
 function ControlsAndInput() {
   this.menuDisplayed = false;
 
-  //create an array amplitude values from the fft.
-  // var spectrum = fourier.analyze();
-
   //playback button displayed in the top left of the screen
   this.playbackButton = new PlaybackButton();
+
+  //frquencies used by the energyfunction to retrieve a value
+  //for each plot.
+  this.frequencyBins = ["bass", "lowMid", "highMid", "treble"];
+
+  //create an array amplitude values from the fft.
+  var spectrum = fourier.analyze();
 
   //make the window fullscreen or revert to windowed
   this.mousePressed = function () {
     if (!this.playbackButton.hitCheck()) {
-      //fullscreen(true);
-      //if (fullscreen) {
-      //  fullscreen(false);
-      //}
+      x;
     }
     //check if the playback button has been clicked
     //if not make the visualisation fullscreen
@@ -32,6 +33,11 @@ function ControlsAndInput() {
     if (keycode > 48 && keycode < 58) {
       var visNumber = keycode - 49;
       vis.selectVisual(vis.visuals[visNumber].name);
+      this.menuDisplayed = true;
+    }
+
+    if (keycode == 49) {
+      this.menuDisplayed = !this.menuDisplayed;
     }
   };
 
@@ -47,38 +53,43 @@ function ControlsAndInput() {
     this.playbackButton.draw();
     //only draw the menu if menu displayed is set to true.
     if (this.menuDisplayed) {
-      this.visSelect();
-      this.menu();
+      var currentBin = 2;
+      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
+      var h = map(energy, 0, 255, 0, 20) * 2;
+      this.visSelect(h);
+
+      var currentBin = 3;
+      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
+      var h = map(energy, 0, 255, 0, 20) * 2;
+      this.menu(h);
     }
     pop();
   };
 
-  // Calculate camera position based on angle and radius
-  let camX = cam.radius * cos(cam.angle);
-  let camY = cam.radius * sin(cam.angle) - cam.altitude;
-  let camZ = cam.distance * sin(cam.angle) + cam.distance * 2;
-
-  // Update camera position and look at the center of the scene
-  // camera(camX, camY, camZ, 0, 0, 0, 0, 1, 0);
-
-  for (var i = 0; i < width / 4; i++) {
-    // Increment angle for rotation
-    cam.angle += i;
-  }
-
-  this.visSelect = function () {
-    push();
-    textSize(68);
-    fill(1 + i * 15, 50, 255);
-    translate(camX, camY, camZ);
-    text("Select a visualisation:", 25, 50);
-    pop();
+  this.visSelect = function (h) {
+    for (i = 0; i < h + 1; i++) {
+      push();
+      textSize(68);
+      fill(1 + i * 15, 50, 255);
+      translate(i * sin(millis() / 400), i * cos(millis() / 400), i);
+      rotate(sin(millis() / 400) / 40);
+      text("Select a visualisation:", 25, 50);
+      pop();
+    }
   };
 
-  this.menu = function () {
+  this.menu = function (h) {
     //draw out menu items for each visualisation
-    for (i = 0; i < 5; i++) {
-      text(i + 1 + ": " + vis.visuals[i].name, 25, 100 + i * 40);
+
+    for (j = 0; j < h + 1; j++) {
+      push();
+      fill(255, 1 + j * 15, 1 + j * 15);
+      translate(j, 0, j);
+      rotate(cos(millis() / 400) / 40);
+      for (i = 0; i < 9; i++) {
+        text(i + 1 + ": " + vis.visuals[i].name, 25, 100 + i * 40);
+      }
+      pop();
     }
   };
 }
