@@ -5,6 +5,13 @@ function Spectrum() {
     push();
     var spectrum = fourier.analyze();
     noStroke();
+
+    let newArr = [];
+    for (let i = 0; i < spectrum.length; i = i + 15) {
+      newArr.push(spectrum[i]);
+    }
+
+    spectrum = newArr;
     let w = width / spectrum.length;
 
     fill(0, 255, 0);
