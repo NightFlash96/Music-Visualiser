@@ -19,9 +19,12 @@ var mic;
 var amplitude;
 var prevLevels = new Array(60);
 
+let camerka;
+let boxPosition;
+
 function preload() {
   // sound = loadSound("assets/stomper_reggae_bit.mp3");
-  sound = loadSound("assets/aerodynamic.mp3");
+   sound = loadSound("assets/aerodynamic.mp3");
   // sound = loadSound("assets/Voyager.mp3");
   // sound = loadSound("assets/nirvana.flac");
   // sound = loadSound("assets/Blow Me Away.mp3");
@@ -60,10 +63,17 @@ function setup() {
   vis.add(new Shapes2());
   vis.add(new Test());
   vis.add(new Cubes());
+
+  camerka = createCamera();
+
 }
+
+
 
 function draw() {
   background(0);
+
+  console.log(camerka.eyeX + ',' + camerka.eyeY + ',' + camerka.eyeZ);
 
   //camera controll
   orbitControl();
@@ -71,8 +81,21 @@ function draw() {
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
   vis.selectedVisual.draw();
+
   //draw the controls on top.
   controls.draw();
+
+  boxPosition = createVector(camerka.eyeX+500, camerka.eyeY+1000, camerka.eyeZ-1000);
+
+  console.log("boxPos:", boxPosition);
+
+  // push();
+  // translate(boxPosition.x, boxPosition.y, boxPosition.z);
+  // //translate(width / 2, height / 2, 0);
+  // fill(255);
+  // stroke(0);
+  // box(40)
+  // pop();
 }
 
 function mouseClicked() {

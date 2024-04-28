@@ -4,6 +4,7 @@ function Spectrum() {
   this.draw = function () {
     push();
     var spectrum = fourier.analyze();
+    smooth();
     noStroke();
 
     let newArr = [];
