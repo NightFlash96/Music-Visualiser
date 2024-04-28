@@ -64,8 +64,11 @@ function setup() {
   vis.add(new Test());
   vis.add(new Cubes());
 
-  camerka = createCamera();
+  //camerka = createCamera();
 
+  // for(let i = 0; i< 1000; i++){
+  //   stars.push({v: p5.Vector.random3D().mult(random(900,1000)), d: random(5)});
+  // }
 }
 
 
@@ -73,7 +76,7 @@ function setup() {
 function draw() {
   background(0);
 
-  console.log(camerka.eyeX + ',' + camerka.eyeY + ',' + camerka.eyeZ);
+  //console.log(camerka.eyeX + ',' + camerka.eyeY + ',' + camerka.eyeZ);
 
   //camera controll
   orbitControl();
@@ -85,9 +88,9 @@ function draw() {
   //draw the controls on top.
   controls.draw();
 
-  boxPosition = createVector(camerka.eyeX+500, camerka.eyeY+1000, camerka.eyeZ-1000);
+  //boxPosition = createVector(camerka.eyeX+500, camerka.eyeY+1000, camerka.eyeZ-1000);
 
-  console.log("boxPos:", boxPosition);
+  //console.log("boxPos:", boxPosition);
 
   // push();
   // translate(boxPosition.x, boxPosition.y, boxPosition.z);
