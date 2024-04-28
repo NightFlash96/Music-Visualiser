@@ -22,6 +22,8 @@ var prevLevels = new Array(60);
 let camerka;
 let boxPosition;
 
+let stars = [];
+
 function preload() {
   // sound = loadSound("assets/stomper_reggae_bit.mp3");
    sound = loadSound("assets/aerodynamic.mp3");
@@ -66,9 +68,10 @@ function setup() {
 
   //camerka = createCamera();
 
-  // for(let i = 0; i< 1000; i++){
-  //   stars.push({v: p5.Vector.random3D().mult(random(900,1000)), d: random(5)});
-  // }
+  for(let i = 0; i< 1000; i++){
+    stars.push({v: p5.Vector.random3D().mult(random(1200,1500)), d: random(5)});
+  }
+  console.log(stars);
 }
 
 
@@ -81,6 +84,7 @@ function draw() {
   //camera controll
   orbitControl();
 
+  push();
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
   vis.selectedVisual.draw();
@@ -99,6 +103,13 @@ function draw() {
   // stroke(0);
   // box(40)
   // pop();
+  pop();
+
+  stroke(255);
+  for(s of stars){
+    strokeWeight(random(s.d));
+    point(s.v.x,s.v.y,s.v.z);
+  }
 }
 
 function mouseClicked() {
