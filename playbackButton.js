@@ -2,10 +2,8 @@
 function PlaybackButton() {
   this.x = width / 2 - 10;
   this.y = height / 1.1;
-  this.z = 0;
   this.width = 20;
   this.height = 20;
-  // translate(camera.eyeX, camera.eyeY, camera.eyeZ+50);
 
   //flag to determine whether to play or pause after button click and
   //to determine which icon to draw
