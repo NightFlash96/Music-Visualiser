@@ -17,41 +17,51 @@ function ControlsAndInput() {
 
   let selectSong = 0;
 
-  let button1 = createButton(soundName[0]);
-  button1.position(width - 225, 155 + 0 * 35);
-  // button1.mousePressed(this.soundPlaying);
+  let buttonNames = [
+    "song1",
+    "song2",
+    "song3",
+    "song4",
+    "song5",
+    "song6",
+    "song7",
+    "song8",
+  ];
 
-  let button2 = createButton(soundName[1]);
-  button2.position(width - 225, 155 + 1 * 35);
-  // button2.mousePressed(this.soundPlaying);
+  let buttons = [];
 
-  let button3 = createButton(soundName[2]);
-  button3.position(width - 225, 155 + 2 * 35);
+  buttonNames.map((button, index) => {
+    let currentButton = createButton(button);
+    currentButton.position(width - 225, 155 + index * 35);
+    buttons.push(currentButton);
+  });
 
-  this.soundPlaying1 = function () {
-    selectSong = 0;
-    if (this.playing) {
-      sound[0].loop();
-      sound[1].pause();
-      sound[2].pause();
+  this.soundPlaying = function (songId) {
+    selectSong = songId;
+    for (let i = 0; i < 8; i++) {
+      console.log(i);
+      sound[i].pause();
+    }
+    if (this.playbackButton.playing) {
+      sound[selectSong].loop();
     }
   };
-  this.soundPlaying2 = function () {
-    selectSong = 1;
-    if (this.playing) {
-      sound[1].loop();
-      sound[0].pause();
-      sound[2].pause();
-    }
-  };
-  this.soundPlaying3 = function () {
-    selectSong = 2;
-    if (this.playing) {
-      sound[2].loop();
-      sound[1].pause();
-      sound[0].pause();
-    }
-  };
+  // this.soundPlaying2 = function () {
+  //   selectSong = 1;
+  //   if (this.playing) {
+  //     sound[1].loop();
+  //     sound[0].pause();
+  //     sound[2].pause();
+  //   }
+  // };
+  // this.soundPlaying3 = function () {
+  //   selectSong = 2;
+  //   if (this.playing) {
+  //     sound[2].loop();
+  //     sound[1].pause();
+  //     sound[0].pause();
+  //   }
+  // };
 
   //play selected sound
   this.mousePressed = function () {
@@ -62,9 +72,10 @@ function ControlsAndInput() {
         sound[selectSong].loop();
       }
     }
-    button1.mousePressed(this.soundPlaying1);
-    button2.mousePressed(this.soundPlaying2);
-    button3.mousePressed(this.soundPlaying3);
+
+    buttons.map((button, index) => {
+      button.mousePressed(() => this.soundPlaying(index));
+    });
   };
 
   //responds to keyboard presses

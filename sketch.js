@@ -51,10 +51,6 @@ function setup() {
   mic = new p5.AudioIn();
   mic.start();
 
-  amplitude = new p5.Amplitude();
-  amplitude.setInput(sound[1]);
-  amplitude.smooth(0.6);
-
   sound.push(sound1);
   sound.push(sound2);
   sound.push(sound3);
@@ -63,6 +59,10 @@ function setup() {
   sound.push(sound6);
   sound.push(sound7);
   sound.push(sound8);
+
+  amplitude = new p5.Amplitude();
+  amplitude.setInput(sound[0]);
+  amplitude.smooth(0.6);
 
   soundName.push("sound1");
   soundName.push("sound2");
