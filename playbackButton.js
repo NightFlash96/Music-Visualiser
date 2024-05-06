@@ -1,7 +1,7 @@
 //displays and handles clicks on the playback button.
 function PlaybackButton() {
   this.x = width / 2 - 10;
-  this.y = height / 1.1;
+  this.y = height - 40;
   this.width = 20;
   this.height = 20;
 
@@ -18,6 +18,24 @@ function PlaybackButton() {
         this.width / 2 - 2,
         this.height
       );
+      triangle(
+        this.x + 40,
+        this.y,
+        this.x + this.width + 40,
+        this.y + this.height / 2,
+        this.x + 40,
+        this.y + this.height
+      );
+      rect(this.x + 40 + this.width, this.y, 5, this.height);
+      triangle(
+        this.x - 40 + this.width,
+        this.y,
+        this.x - 40,
+        this.y + this.height / 2,
+        this.x - 40 + this.width,
+        this.y + this.height
+      );
+      rect(this.x - 45, this.y, 5, this.height);
     } else {
       triangle(
         this.x,
@@ -27,23 +45,38 @@ function PlaybackButton() {
         this.x,
         this.y + this.height
       );
+      triangle(
+        this.x + 40,
+        this.y,
+        this.x + this.width + 40,
+        this.y + this.height / 2,
+        this.x + 40,
+        this.y + this.height
+      );
+      rect(this.x + 40 + this.width, this.y, 5, this.height);
+      triangle(
+        this.x - 40 + this.width,
+        this.y,
+        this.x - 40,
+        this.y + this.height / 2,
+        this.x - 40 + this.width,
+        this.y + this.height
+      );
+      rect(this.x - 45, this.y, 5, this.height);
     }
   };
 
   //checks for clicks on the button, starts or pauses playabck.
   //@returns true if clicked false otherwise.
+
   this.hitCheck = function () {
+    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
     if (
       mouseX > this.x &&
       mouseX < this.x + this.width &&
       mouseY > this.y &&
       mouseY < this.y + this.height
     ) {
-      if (sound.isPlaying()) {
-        sound.pause();
-      } else {
-        sound.loop();
-      }
       this.playing = !this.playing;
       return true;
     }
