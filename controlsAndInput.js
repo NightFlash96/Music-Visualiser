@@ -32,7 +32,27 @@ function ControlsAndInput() {
 
   buttonNames.map((button, index) => {
     let currentButton = createButton(button);
-    currentButton.position(width - 225, 155 + index * 35);
+    currentButton.position(width - 225, 155 + index * 50);
+    currentButton.style(`border: none;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: black; 
+    color: red; 
+    border: 2px solid #f44336;`);
+    currentButton.mouseOver(() =>
+      currentButton.style(` background-color: #f44336;
+    color: black;`)
+    );
+    currentButton.mouseOut(() =>
+      currentButton.style(` background-color: black; 
+    color: red; `)
+    );
     buttons.push(currentButton);
   });
 
