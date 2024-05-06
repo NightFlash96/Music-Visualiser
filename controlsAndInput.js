@@ -99,9 +99,9 @@ function ControlsAndInput() {
     });
   };
 
+  let visNumber = 0;
   const keyboardController = (keycode) => {
     {
-      let visNumber = 0;
       if (keycode == 32) {
         // this.menuDisplayed = !this.menuDisplayed;
       }
@@ -116,14 +116,10 @@ function ControlsAndInput() {
         this.menuDisplayed = !this.menuDisplayed;
       }
 
-      if (vis.visuals[visNumber].name == vis.visuals[1].name) {
-        slider = createSlider(1, 100);
-        slider.position(30, 170);
-        slider.size(100);
-        let sliderVal = slider.value();
-      } else {
-        slider.hide();
-      }
+      console.log(visNumber);
+      if (visNumber == 1) {
+        slider.show();
+      } else slider.hide();
     }
   };
 
@@ -166,6 +162,7 @@ function ControlsAndInput() {
       var h = map(energy, 0, 255, 0, 20) * 2;
       this.menu(h);
     }
+    sound[selectSong].setVolume(volSlider.value());
     pop();
   };
 

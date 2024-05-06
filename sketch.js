@@ -25,6 +25,7 @@ let sound = [];
 let soundName = [];
 
 let slider;
+let volSlider;
 
 function preload() {
   sound1 = loadSound("assets/stomper_reggae_bit.mp3");
@@ -45,6 +46,14 @@ function setup() {
   background(0);
   textFont(font);
   normalMaterial();
+
+  volSlider = createSlider(0, 10, 5, 0);
+  volSlider.position(30, 170);
+
+  slider = createSlider(1, 100);
+  slider.position(30, 200);
+  slider.hide();
+
   //instantiate the fft object
   fourier = new p5.FFT();
 
