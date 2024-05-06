@@ -59,7 +59,6 @@ function ControlsAndInput() {
   this.soundPlaying = function (songId) {
     selectSong = songId;
     for (let i = 0; i < 8; i++) {
-      console.log(i);
       sound[i].pause();
     }
     amplitude.setInput(sound[selectSong]);
@@ -86,9 +85,8 @@ function ControlsAndInput() {
   //   }
   // };
 
-  //play selected sound
-  this.mousePressed = function () {
-    if (this.playbackButton.hitCheck()) {
+  const playOrPause = (keycode = undefined) => {
+    if (this.playbackButton.hitCheck(keycode)) {
       if (sound[selectSong].isPlaying()) {
         sound[selectSong].pause();
       } else {
@@ -101,32 +99,44 @@ function ControlsAndInput() {
     });
   };
 
+  const keyboardController = (keycode) => {
+    {
+      let visNumber = 0;
+      if (keycode == 32) {
+        // this.menuDisplayed = !this.menuDisplayed;
+      }
+
+      if (keycode > 48 && keycode < 58) {
+        visNumber = keycode - 49;
+        vis.selectVisual(vis.visuals[visNumber].name);
+        this.menuDisplayed = true;
+      }
+
+      if (keycode == 49) {
+        this.menuDisplayed = !this.menuDisplayed;
+      }
+
+      if (vis.visuals[visNumber].name == vis.visuals[1].name) {
+        slider = createSlider(1, 100);
+        slider.position(30, 170);
+        slider.size(100);
+        let sliderVal = slider.value();
+      } else {
+        slider.hide();
+      }
+    }
+  };
+
+  //play selected sound
+  this.mousePressed = playOrPause;
+
+  const keyPressedDetected = (keycode) => {};
+
   //responds to keyboard presses
   //@param keycode the ascii code of the keypressed
-  this.keyPressed = function (keycode) {
-    console.log(keycode);
-    if (keycode == 32) {
-      this.menuDisplayed = !this.menuDisplayed;
-    }
-
-    if (keycode > 48 && keycode < 58) {
-      var visNumber = keycode - 49;
-      vis.selectVisual(vis.visuals[visNumber].name);
-      this.menuDisplayed = true;
-    }
-
-    if (keycode == 49) {
-      this.menuDisplayed = !this.menuDisplayed;
-    }
-
-    if (vis.visuals[visNumber].name == vis.visuals[1].name) {
-      slider = createSlider(1, 100);
-      slider.position(30, 170);
-      slider.size(100);
-      let sliderVal = slider.value();
-    } else {
-      slider.hide();
-    }
+  this.keyPressed = (keycode) => {
+    playOrPause(keycode);
+    keyboardController(keycode);
   };
 
   //draws the playback button and potentially the menu

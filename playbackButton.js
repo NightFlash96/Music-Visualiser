@@ -69,13 +69,14 @@ function PlaybackButton() {
   //checks for clicks on the button, starts or pauses playabck.
   //@returns true if clicked false otherwise.
 
-  this.hitCheck = function () {
+  this.hitCheck = function (keycode = undefined) {
     // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
     if (
-      mouseX > this.x &&
-      mouseX < this.x + this.width &&
-      mouseY > this.y &&
-      mouseY < this.y + this.height
+      (mouseX > this.x &&
+        mouseX < this.x + this.width &&
+        mouseY > this.y &&
+        mouseY < this.y + this.height) ||
+      keycode == 32
     ) {
       this.playing = !this.playing;
       return true;
