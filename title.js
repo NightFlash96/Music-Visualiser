@@ -13,7 +13,7 @@ function Title() {
     fill("white");
     stroke("black");
     strokeWeight(2);
-    textSize(50);
+    textSize(30);
 
     //only draw the menu if menu displayed is set to true.
     var currentBin = 2;
@@ -32,12 +32,12 @@ function Title() {
   this.visSelect = function (h) {
     for (i = 0; i < h + 1; i++) {
       push();
-      textSize(100);
+      textSize(60);
       fill(1 + i * 15, 50, 255);
       //   fill(255 - i * 15, 50, 255);
       translate(i * sin(millis() / 400), i * cos(millis() / 400), i);
       rotate(sin(millis() / 400) / 40);
-      text("Select a visualisation:", width / 4.5, 200);
+      text("Select a visualisation:", width / 4.3, 150);
       pop();
     }
   };
@@ -51,7 +51,7 @@ function Title() {
       translate(j, 0, j);
       rotate(cos(millis() / 400) / 40);
       for (i = 0; i < 9; i++) {
-        text(i + 1 + ": " + vis.visuals[i].name, width / 2.5, 300 + i * 60);
+        text(i + 1 + ": " + vis.visuals[i].name, width / 2.3, 220 + i * 35);
       }
       pop();
     }

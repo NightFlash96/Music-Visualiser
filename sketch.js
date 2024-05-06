@@ -3,7 +3,7 @@ var controls = null;
 //store visualisations in a container
 var vis = null;
 //variable for the p5 sound object
-var sound = null;
+// var sound = null;
 //variable for p5 fast fourier transform
 var fourier;
 //camera
@@ -21,15 +21,20 @@ var prevLevels = new Array(60);
 
 let stars = [];
 
+let sound = [];
+let soundName = [];
+
+let slider;
+
 function preload() {
-  // sound = loadSound("assets/stomper_reggae_bit.mp3");
-  sound = loadSound("assets/aerodynamic.mp3");
-  // sound = loadSound("assets/Voyager.mp3");
-  // sound = loadSound("assets/nirvana.flac");
-  // sound = loadSound("assets/Blow Me Away.mp3");
-  // sound = loadSound("assets/Goat.mp3");
-  // sound = loadSound("assets/dial_up.mp3");
-  // sound = loadSound("assets/odyssey.mp3");
+  sound1 = loadSound("assets/stomper_reggae_bit.mp3");
+  sound2 = loadSound("assets/aerodynamic.mp3");
+  sound3 = loadSound("assets/Voyager.mp3");
+  sound4 = loadSound("assets/nirvana.flac");
+  sound5 = loadSound("assets/Blow Me Away.mp3");
+  sound6 = loadSound("assets/Goat.mp3");
+  sound7 = loadSound("assets/dial_up.mp3");
+  sound8 = loadSound("assets/odyssey.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
 }
@@ -47,8 +52,26 @@ function setup() {
   mic.start();
 
   amplitude = new p5.Amplitude();
-  amplitude.setInput(sound);
+  amplitude.setInput(sound[1]);
   amplitude.smooth(0.6);
+
+  sound.push(sound1);
+  sound.push(sound2);
+  sound.push(sound3);
+  sound.push(sound4);
+  sound.push(sound5);
+  sound.push(sound6);
+  sound.push(sound7);
+  sound.push(sound8);
+
+  soundName.push("sound1");
+  soundName.push("sound2");
+  soundName.push("sound3");
+  soundName.push("sound4");
+  soundName.push("sound5");
+  soundName.push("sound6");
+  soundName.push("sound7");
+  soundName.push("sound8");
 
   //create a new visualisation container and add visualisations
   controls = new ControlsAndInput();
@@ -75,7 +98,7 @@ function draw() {
   background(0);
 
   //camera controll
-  orbitControl();
+  // orbitControl();
 
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
