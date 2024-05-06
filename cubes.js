@@ -12,12 +12,13 @@ function Cubes() {
 
     // translate(this.cols * this.boxSize, this.rows * this.boxSize, 0);
     translate(
-      width / 2 - (this.cols * this.boxSize) / 2,
-      height / 2 - (this.rows * this.boxSize) / 2,
-      0
+      width / 2 - (this.cols * this.boxSize) / 2, //x position
+      300, //y position
+      -250 //z position
     );
 
     // Draws the grid of boxes
+    rotateX(PI / 3);
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         let i = x + y * this.cols;
