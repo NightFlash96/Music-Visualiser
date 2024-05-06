@@ -62,10 +62,13 @@ function ControlsAndInput() {
       console.log(i);
       sound[i].pause();
     }
+    amplitude.setInput(sound[selectSong]);
+    amplitude.smooth(0.6);
     if (this.playbackButton.playing) {
       sound[selectSong].loop();
     }
   };
+  this.soundPlaying(0);
   // this.soundPlaying2 = function () {
   //   selectSong = 1;
   //   if (this.playing) {

@@ -61,8 +61,6 @@ function setup() {
   sound.push(sound8);
 
   amplitude = new p5.Amplitude();
-  amplitude.setInput(sound[0]);
-  amplitude.smooth(0.6);
 
   soundName.push("sound1");
   soundName.push("sound2");
@@ -86,7 +84,7 @@ function setup() {
   vis.add(new Test());
   vis.add(new Cubes());
 
-  for (let i = 0; i < 10; i++) {
+  for (let i = 0; i < 100; i++) {
     stars.push({
       v: p5.Vector.random3D().mult(random(1200, 1500)),
       d: random(10, 15),
