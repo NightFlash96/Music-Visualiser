@@ -1,54 +1,51 @@
-//constructor function to draw a
 function Test() {
-  //name of the visualisation
   this.name = "test";
-
-  //frquencies used by the energyfunction to retrieve a value
-  //for each plot.
-  this.frequencyBins = ["bass", "lowMid", "highMid", "treble"];
 
   this.draw = function () {
     push();
-
-    //create an array amplitude values from the fft.
+    colorMode(HSB);
     var spectrum = fourier.analyze();
-    //iterator for selecting frequency bin.
+    noStroke();
 
-    fill(0, 255, 0);
-    for (var i = 0; i < width / 4; i++) {
-      var currentBin = 0;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var x = map(i, 0, spectrum.length, 0, width);
-      var h = -height + map(energy, 0, 255, height, 0);
-      fill(spectrum[i], 255 - spectrum[i], 0);
-      rect(x, height, width / spectrum.length, h);
-    }
+    let array1 = [];
+    let array2 = [];
 
-    for (var i = 0; i < width / 4; i++) {
-      var currentBin = 1;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var x = map(i, 0, spectrum.length, 0, width);
-      var h = -height + map(energy, 0, 255, height, 0);
-      fill(spectrum[i], 255 - spectrum[i], 0);
-      rect(x + width / 4, height, width / spectrum.length, h);
+    // let n = slider.value();
+    for (let i = 0; i < spectrum.length; i = i + 1) {
+      array1.push(spectrum[i]);
+      array2.push(spectrum[spectrum.length - i]);
     }
+    console.log(array1);
+    console.log(array2);
+    // console.log(spectrum.length);
+    
+    let bitWidth = width / array1.length;
 
-    for (var i = 0; i < width / 4; i++) {
-      var currentBin = 2;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var x = map(i, 0, spectrum.length, 0, width);
-      var h = -height + map(energy, 0, 255, height, 0);
-      fill(spectrum[i], 255 - spectrum[i], 0);
-      rect(x + (width / 4) * 2, height, width / spectrum.length, h);
+    fill(255);
+
+    beginShape();
+    vertex(0, height);
+    for (var i = 1; i < array1.length; i++) {
+     
+      let amp = array1[i];
+      let bitHeight = map(amp, 0, 256, height, 0);
+
+      vertex(bitWidth*i, bitHeight);
     }
-    for (var i = 0; i < width / 4; i++) {
-      var currentBin = 3;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var x = map(i, 0, spectrum.length, 0, width);
-      var h = -height + map(energy, 0, 255, height, 0);
-      fill(spectrum[i], 255 - spectrum[i], 0);
-      rect(x + (width / 4) * 3, height, width / spectrum.length, h);
+    vertex(width/2, height);
+    // endShape();
+
+    // beginShape();
+    // vertex(width/2, height);
+    for (var j = 1; j < array2.length; j++) {
+     
+      let amp = array2[j];
+      let bitHeight = map(amp, 0, 256, height, 0);
+
+      vertex(bitWidth*j, bitHeight);
     }
+    vertex(width, height);
+    endShape(CLOSE);
 
     pop();
   };

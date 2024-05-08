@@ -18,6 +18,8 @@ function ControlsAndInput() {
 
   let selectSong = 0;
 
+  let marquee = width;
+
   let buttonNames = [
     "Stomper reggae",
     "Aerodynamic",
@@ -163,6 +165,12 @@ function ControlsAndInput() {
         var h = map(energy, 0, 255, 0, 20) * 2;
         this.menu(h);
       }
+       //marquee text for currently playing song
+      stroke(255);
+      text("Currently Playing: " + buttonNames[selectSong], marquee -= 2, height-50);
+      if (marquee < -width / 4) {
+        marquee = width;
+      }
     } else {
       volSlider.hide();
       specSlider.hide();
@@ -173,6 +181,13 @@ function ControlsAndInput() {
       }
     }
     sound[selectSong].setVolume(volSlider.value());
+
+    //marquee text for currently playing song
+    // stroke(255);
+    // text("Currently Playing: " + buttonNames[selectSong], marquee -= 2, height-50);
+    // if (marquee < -width / 4) {
+    //   marquee = width;
+    // }
     pop();
   };
 
