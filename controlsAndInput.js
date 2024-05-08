@@ -135,7 +135,7 @@ function ControlsAndInput() {
     var h = map(energy, 0, 255, 0, 20) * 2;
     fill("red");
     text("Show menu:", width - 150, 39);
-    if (!this.menuDisplayed) {
+    if (!this.menuDisplayed) { //stuff in here is displayed when the checkbox is ticked
       this.options(h);
       text("Custom song:", 25, 165);
       input.show();
@@ -171,7 +171,7 @@ function ControlsAndInput() {
       if (marquee < -width / 4) {
         marquee = width;
       }
-    } else {
+    } else { //hides all the controls when the checkbox is not ticked
       volSlider.hide();
       specSlider.hide();
       checkbox.hide();
@@ -181,13 +181,6 @@ function ControlsAndInput() {
       }
     }
     sound[selectSong].setVolume(volSlider.value());
-
-    //marquee text for currently playing song
-    // stroke(255);
-    // text("Currently Playing: " + buttonNames[selectSong], marquee -= 2, height-50);
-    // if (marquee < -width / 4) {
-    //   marquee = width;
-    // }
     pop();
   };
 
