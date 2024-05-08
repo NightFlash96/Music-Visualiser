@@ -101,10 +101,10 @@ function ControlsAndInput() {
         this.menuDisplayed = !this.menuDisplayed;
       }
 
-      console.log(visNumber);
       if (visNumber == 1) {
-        slider.show();
-      } else slider.hide();
+        specSlider.show();
+        text("Spectrum", 25, 290);
+      } else specSlider.hide();
     }
   };
 
@@ -126,7 +126,7 @@ function ControlsAndInput() {
     fill("white");
     stroke("black");
     strokeWeight(2);
-    textSize(25);
+    textSize(20);
 
     //playback button
     this.playbackButton.draw();
@@ -135,6 +135,13 @@ function ControlsAndInput() {
     var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
     var h = map(energy, 0, 255, 0, 20) * 2;
     this.options(h);
+    fill("red");
+    text("Custom song:", 25, 165);
+    text("Mic input:", 25, 220);
+    text("Volume:", 25, 250);
+    if (visNumber == 1) {
+      text("Spectrum", 25, 290);
+    }
     this.songlist(h);
     if (this.menuDisplayed) {
       var currentBin = 2;
@@ -168,6 +175,7 @@ function ControlsAndInput() {
 
     for (j = 0; j < h + 1; j++) {
       push();
+      textSize(25);
       fill(255, 1 + j * 15, 1 + j * 15);
       translate(0, 0, j);
       rotate(cos(millis() / 400) / 40);
@@ -181,6 +189,7 @@ function ControlsAndInput() {
   this.options = function (h) {
     for (i = 0; i < h + 1; i++) {
       push();
+      textSize(25);
       fill(1 + i * 15, 50, 255);
       translate(i, 0, i);
       rotate(cos(millis() / 400) / 40);
@@ -192,6 +201,7 @@ function ControlsAndInput() {
   this.songlist = function (h) {
     for (i = 0; i < h + 1; i++) {
       push();
+      textSize(25);
       fill(1 + i * 15, 50, 255);
       translate(width - 250 - i, 0, i);
       rotate(cos(millis() / 400) / 40);

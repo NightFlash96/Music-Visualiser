@@ -10,7 +10,7 @@ function Spectrum() {
     let newArr = [];
 
     // let n = slider.value();
-    for (let i = 0; i < spectrum.length; i = i + slider.value()) {
+    for (let i = 0; i < spectrum.length; i = i + specSlider.value()) {
       newArr.push(spectrum[i]);
     }
 

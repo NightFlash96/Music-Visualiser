@@ -24,7 +24,7 @@ let stars = [];
 let sound = [];
 let img;
 
-let slider;
+let specSlider;
 let volSlider;
 
 let checkbox;
@@ -50,18 +50,18 @@ function setup() {
   normalMaterial();
 
   volSlider = createSlider(0, 10, 5, 0);
-  volSlider.position(30, 180);
+  volSlider.position(30, 250);
 
-  slider = createSlider(1, 100);
-  slider.position(30, 210);
-  slider.hide();
+  specSlider = createSlider(1, 100);
+  specSlider.position(30, 290);
+  specSlider.hide();
 
   checkbox = createCheckbox();
-  checkbox.position(25, 240);
+  checkbox.position(130, 206);
   checkbox.changed(micCheck);
 
   let input = createFileInput(handleImage);
-  input.position(25, 150);
+  input.position(25, 170);
 
   mic = new p5.AudioIn();
   mic.stop();
