@@ -18,21 +18,21 @@ function ControlsAndInput() {
   let selectSong = 0;
 
   let buttonNames = [
-    "song1",
-    "song2",
-    "song3",
-    "song4",
-    "song5",
-    "song6",
-    "song7",
-    "song8",
+    "Stomper reggae",
+    "Aerodynamic",
+    "Voyager",
+    "Nirvana",
+    "Blow me away",
+    "G.O.A.T",
+    "Odyssey",
+    "Custom",
   ];
 
   let buttons = [];
 
   buttonNames.map((button, index) => {
     let currentButton = createButton(button);
-    currentButton.position(width - 225, 155 + index * 50);
+    currentButton.position(width - 225, 150 + index * 50);
     currentButton.style(`border: none;
     padding: 10px 32px;
     text-align: center;
@@ -58,9 +58,10 @@ function ControlsAndInput() {
 
   this.soundPlaying = function (songId) {
     selectSong = songId;
-    for (let i = 0; i < 8; i++) {
+    for (let i in buttons) {
       sound[i].pause();
     }
+    fourier.setInput(sound[selectSong]);
     amplitude.setInput(sound[selectSong]);
     amplitude.smooth(0.6);
     if (this.playbackButton.playing) {
@@ -68,22 +69,6 @@ function ControlsAndInput() {
     }
   };
   this.soundPlaying(0);
-  // this.soundPlaying2 = function () {
-  //   selectSong = 1;
-  //   if (this.playing) {
-  //     sound[1].loop();
-  //     sound[0].pause();
-  //     sound[2].pause();
-  //   }
-  // };
-  // this.soundPlaying3 = function () {
-  //   selectSong = 2;
-  //   if (this.playing) {
-  //     sound[2].loop();
-  //     sound[1].pause();
-  //     sound[0].pause();
-  //   }
-  // };
 
   const playOrPause = (keycode = undefined) => {
     if (this.playbackButton.hitCheck(keycode)) {

@@ -22,10 +22,12 @@ var prevLevels = new Array(60);
 let stars = [];
 
 let sound = [];
-let soundName = [];
+let img;
 
 let slider;
 let volSlider;
+
+let checkbox;
 
 function preload() {
   sound1 = loadSound("assets/stomper_reggae_bit.mp3");
@@ -48,17 +50,26 @@ function setup() {
   normalMaterial();
 
   volSlider = createSlider(0, 10, 5, 0);
-  volSlider.position(30, 170);
+  volSlider.position(30, 180);
 
   slider = createSlider(1, 100);
-  slider.position(30, 200);
+  slider.position(30, 210);
   slider.hide();
+
+  checkbox = createCheckbox();
+  checkbox.position(25, 240);
+  checkbox.changed(micCheck);
+
+  let input = createFileInput(handleImage);
+  input.position(25, 150);
+
+  mic = new p5.AudioIn();
+  mic.stop();
+  // mic.start();
 
   //instantiate the fft object
   fourier = new p5.FFT();
-
-  mic = new p5.AudioIn();
-  mic.start();
+  fourier.setInput(mic);
 
   sound.push(sound1);
   sound.push(sound2);
@@ -66,19 +77,11 @@ function setup() {
   sound.push(sound4);
   sound.push(sound5);
   sound.push(sound6);
-  sound.push(sound7);
   sound.push(sound8);
+  sound.push(sound7);
 
   amplitude = new p5.Amplitude();
-
-  soundName.push("sound1");
-  soundName.push("sound2");
-  soundName.push("sound3");
-  soundName.push("sound4");
-  soundName.push("sound5");
-  soundName.push("sound6");
-  soundName.push("sound7");
-  soundName.push("sound8");
+  amplitude.setInput(mic);
 
   //create a new visualisation container and add visualisations
   controls = new ControlsAndInput();
@@ -101,8 +104,31 @@ function setup() {
   }
 }
 
+function handleImage(file) {
+  // Check the p5.File's type.
+  if (file.type === "audio") {
+    // Create an image using using the p5.File's data.
+    img = loadSound(file.data);
+  } else {
+    img = null;
+  }
+}
+
+function micCheck() {
+  if (checkbox.checked()) {
+    mic.start();
+  } else if (!checkbox.checked()) {
+    mic.stop();
+  }
+}
 function draw() {
   background(0);
+
+  if (img) {
+    // sound[7].pause();
+    sound.splice(7, 1, img);
+    // sound[7].loop();
+  }
 
   //camera controll
   // orbitControl();
