@@ -22,7 +22,7 @@ var prevLevels = new Array(60);
 let stars = [];
 
 let sound = [];
-let img;
+let soundFile;
 
 let specSlider;
 let volSlider;
@@ -60,7 +60,7 @@ function setup() {
   checkbox.position(130, 206);
   checkbox.changed(micCheck);
 
-  let input = createFileInput(handleImage);
+  let input = createFileInput(handleSound);
   input.position(25, 170);
 
   mic = new p5.AudioIn();
@@ -99,18 +99,18 @@ function setup() {
   for (let i = 0; i < 100; i++) {
     stars.push({
       v: p5.Vector.random3D().mult(random(1200, 1500)),
-      d: random(10, 15),
+      d: random(5, 20),
     });
   }
 }
 
-function handleImage(file) {
+function handleSound(file) {
   // Check the p5.File's type.
   if (file.type === "audio") {
     // Create an image using using the p5.File's data.
-    img = loadSound(file.data);
+    soundFile = loadSound(file.data);
   } else {
-    img = null;
+    soundFile = null;
   }
 }
 
@@ -124,9 +124,9 @@ function micCheck() {
 function draw() {
   background(0);
 
-  if (img) {
+  if (soundFile) {
     // sound[7].pause();
-    sound.splice(7, 1, img);
+    sound.splice(7, 1, soundFile);
     // sound[7].loop();
   }
 
@@ -143,8 +143,8 @@ function draw() {
   translate(width / 2, height / 2);
   stroke(255);
   for (s of stars) {
-    strokeWeight(map(amplitude.getLevel(), 0, 0.2, 0, s.d));
-    point(s.v.x, s.v.y, (s.v.z += amplitude.getLevel() * 500));
+    strokeWeight(min(map(amplitude.getLevel(), 0, 0.5, 0, s.d), 25));
+    point(s.v.x, s.v.y, (s.v.z += amplitude.getLevel() * 50));
     if (s.v.z > 2000) {
       s.v = p5.Vector.random3D().mult(random(1200, 1500));
       s.v.z = -2000;
