@@ -138,7 +138,7 @@ function draw() {
   }
 
   //camera controll
-  // orbitControl();
+  orbitControl();
 
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
