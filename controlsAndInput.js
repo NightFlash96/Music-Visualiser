@@ -2,6 +2,7 @@
 //controls
 function ControlsAndInput() {
   this.menuDisplayed = false;
+  this.mainMenuDisplayed = false;
 
   //playback button displayed in the top left of the screen
   this.playbackButton = new PlaybackButton();
@@ -87,24 +88,20 @@ function ControlsAndInput() {
   let visNumber = 0;
   const keyboardController = (keycode) => {
     {
-      if (keycode == 32) {
-        // this.menuDisplayed = !this.menuDisplayed;
-      }
-
       if (keycode > 48 && keycode < 58) {
         visNumber = keycode - 49;
         vis.selectVisual(vis.visuals[visNumber].name);
-        this.menuDisplayed = true;
+        this.mainMenuDisplayed = true;
       }
 
       if (keycode == 49) {
-        this.menuDisplayed = !this.menuDisplayed;
+        this.mainMenuDisplayed = false;
       }
 
       if (visNumber == 1) {
         specSlider.show();
         text("Spectrum", 25, 290);
-      } else specSlider.hide();
+      }
     }
   };
 
@@ -134,25 +131,44 @@ function ControlsAndInput() {
     var currentBin = 0;
     var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
     var h = map(energy, 0, 255, 0, 20) * 2;
-    this.options(h);
     fill("red");
-    text("Custom song:", 25, 165);
-    text("Mic input:", 25, 220);
-    text("Volume:", 25, 250);
-    if (visNumber == 1) {
-      text("Spectrum", 25, 290);
-    }
-    this.songlist(h);
-    if (this.menuDisplayed) {
-      var currentBin = 2;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var h = map(energy, 0, 255, 0, 20) * 2;
-      this.visSelect(h);
+    text("Show menu:", width - 150, 39);
+    if (!this.menuDisplayed) {
+      this.options(h);
+      text("Custom song:", 25, 165);
+      input.show();
+      text("Mic input:", 25, 220);
+      checkbox.show();
+      text("Volume:", 25, 250);
+      volSlider.show();
+      if (visNumber == 1) {
+        text("Spectrum", 25, 290);
+        specSlider.show();
+      }
+      this.songlist(h);
+      for (let i in buttons) {
+        buttons[i].show();
+      }
 
-      var currentBin = 3;
-      var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-      var h = map(energy, 0, 255, 0, 20) * 2;
-      this.menu(h);
+      if (this.mainMenuDisplayed) {
+        var currentBin = 2;
+        var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
+        var h = map(energy, 0, 255, 0, 20) * 2;
+        this.visSelect(h);
+
+        var currentBin = 3;
+        var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
+        var h = map(energy, 0, 255, 0, 20) * 2;
+        this.menu(h);
+      }
+    } else {
+      volSlider.hide();
+      specSlider.hide();
+      checkbox.hide();
+      input.hide();
+      for (let i in buttons) {
+        buttons[i].hide();
+      }
     }
     sound[selectSong].setVolume(volSlider.value());
     pop();

@@ -44,13 +44,17 @@ function Shapes() {
     for (j = 0; j < h + 1; j++) {
       push();
       rotateX(PI / 2);
-      ellipse(0,0, 700+j*10);
+      ellipse(0, 0, 700 + j * 10, 700 + j * 10, 50);
       pop();
     }
 
     push();
     //translate(500*sin(millis()/1000), 0, 500*cos(millis()/1000));
-    translate(500*sin(this.value+=spectrum[i]/50), 0, 500*cos(this.value+=spectrum[i]/50));
+    translate(
+      500 * sin((this.value += spectrum[i] / 50)),
+      0,
+      500 * cos((this.value += spectrum[i] / 50))
+    );
     sphere(50);
     pop();
 

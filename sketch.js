@@ -23,11 +23,14 @@ let stars = [];
 
 let sound = [];
 let soundFile;
+let input;
 
 let specSlider;
 let volSlider;
 
 let checkbox;
+
+let hidebox;
 
 function preload() {
   sound1 = loadSound("assets/stomper_reggae_bit.mp3");
@@ -60,7 +63,11 @@ function setup() {
   checkbox.position(130, 206);
   checkbox.changed(micCheck);
 
-  let input = createFileInput(handleSound);
+  hidebox = createCheckbox("", true);
+  hidebox.position(width - 50, 25);
+  hidebox.changed(hideMenu);
+
+  input = createFileInput(handleSound);
   input.position(25, 170);
 
   mic = new p5.AudioIn();
@@ -117,7 +124,7 @@ function handleSound(file) {
 function micCheck() {
   if (checkbox.checked()) {
     mic.start();
-  } else if (!checkbox.checked()) {
+  } else {
     mic.stop();
   }
 }
@@ -152,6 +159,9 @@ function draw() {
     // console.log(amplitude.getLevel());
   }
   pop();
+}
+function hideMenu() {
+  controls.menuDisplayed = !controls.menuDisplayed;
 }
 
 function mouseClicked() {
