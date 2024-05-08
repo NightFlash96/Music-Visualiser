@@ -144,6 +144,8 @@ function ControlsAndInput() {
       if (visNumber == 1) {
         text("Spectrum", 25, 290);
         specSlider.show();
+      } else {
+        specSlider.hide();
       }
       this.songlist(h);
       for (let i in buttons) {
