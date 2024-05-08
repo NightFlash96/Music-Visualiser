@@ -1,14 +1,15 @@
 function Cubes() {
   this.name = "cubes";
 
-  this.numBoxes = 800;
+  this.numBoxes = 900;
   this.cols = 40;
   this.rows = ceil(this.numBoxes / this.cols);
-  this.boxSize = 30;
+  this.boxSize = width*0.8 / this.cols;
 
   this.draw = function () {
     push();
     var spectrum = fourier.analyze();
+    //smooth();
 
     // translate(this.cols * this.boxSize, this.rows * this.boxSize, 0);
     translate(
