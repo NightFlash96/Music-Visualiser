@@ -34,7 +34,7 @@ let hidebox;
 
 function preload() {
   sound1 = loadSound("assets/stomper_reggae_bit.mp3");
-  sound2 = loadSound("assets/aerodynamic.mp3");
+  sound2 = loadSound("assets/jamiroquai.mp3");
   sound3 = loadSound("assets/Voyager.mp3");
   sound4 = loadSound("assets/nirvana.flac");
   sound5 = loadSound("assets/Blow Me Away.mp3");

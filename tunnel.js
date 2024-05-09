@@ -52,7 +52,7 @@ function Tunnel() {
     if (framecount % 10 == 0 && level > 0) {
       queue.push(new LandSlice());
     }
-    console.log(queue.length);
+   
 
     for (let i = queue.length - 1; i >= 0; i--) {
       queue[i].update();
