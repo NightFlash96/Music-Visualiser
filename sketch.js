@@ -55,7 +55,7 @@ function setup() {
   volSlider = createSlider(0, 1, 0.5, 0);
   volSlider.position(30, 250);
 
-  specSlider = createSlider(1, 100);
+  specSlider = createSlider(1, 100, 1);
   specSlider.position(30, 290);
   specSlider.hide();
 
