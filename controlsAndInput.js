@@ -14,6 +14,8 @@ function ControlsAndInput() {
   //create an array amplitude values from the fft.
   var spectrum = fourier.analyze();
 
+  var level;
+
   let newArr = [0, 110, 260, 420, 610, 750, 880, 1020, 1120];
 
   let selectSong = 0;
@@ -90,13 +92,14 @@ function ControlsAndInput() {
   let visNumber = 0;
   const keyboardController = (keycode) => {
     {
+      // console.log(keycode);
       if (keycode > 48 && keycode < 58) {
         visNumber = keycode - 49;
         vis.selectVisual(vis.visuals[visNumber].name);
         this.mainMenuDisplayed = true;
       }
 
-      if (keycode == 49) {
+      if (visNumber == 0) {
         this.mainMenuDisplayed = false;
       }
 
@@ -107,10 +110,44 @@ function ControlsAndInput() {
     }
   };
 
+  const skip = () => {
+    if (this.playbackButton.hitCheckSkip()) {
+      if (selectSong > buttonNames.length - 2) {
+        sound[selectSong].pause();
+        selectSong = 0;
+        sound[selectSong].stop();
+        this.soundPlaying(selectSong);
+      } else {
+        sound[selectSong].pause();
+        selectSong += 1;
+        sound[selectSong].stop();
+        this.soundPlaying(selectSong);
+      }
+    }
+  };
+
+  const rewind = () => {
+    if (this.playbackButton.hitCheckRewind()) {
+      if (selectSong < 1) {
+        sound[selectSong].pause();
+        selectSong = buttonNames.length - 1;
+        sound[selectSong].stop();
+        this.soundPlaying(selectSong);
+      } else {
+        sound[selectSong].pause();
+        selectSong -= 1;
+        sound[selectSong].stop();
+        this.soundPlaying(selectSong);
+      }
+    }
+  };
+
   //play selected sound
   this.mousePressed = playOrPause;
+  this.mousePressed1 = skip;
+  this.mousePressed2 = rewind;
 
-  const keyPressedDetected = (keycode) => {};
+  // const keyPressedDetected = (keycode) => {};
 
   //responds to keyboard presses
   //@param keycode the ascii code of the keypressed
@@ -119,9 +156,17 @@ function ControlsAndInput() {
     keyboardController(keycode);
   };
 
+  this.beatDetection = function () {
+    if (level > 0.2) {
+      return true;
+    }
+    return false;
+  };
+
   //draws the playback button and potentially the menu
   this.draw = function () {
     push();
+    level = amplitude.getLevel();
     fill("white");
     stroke("black");
     strokeWeight(2);
@@ -135,7 +180,8 @@ function ControlsAndInput() {
     var h = map(energy, 0, 255, 0, 20) * 2;
     fill("red");
     text("Show menu:", width - 150, 39);
-    if (!this.menuDisplayed) { //stuff in here is displayed when the checkbox is ticked
+    if (!this.menuDisplayed) {
+      //stuff in here is displayed when the checkbox is ticked
       this.options(h);
       text("Custom song:", 25, 165);
       input.show();
@@ -165,13 +211,18 @@ function ControlsAndInput() {
         var h = map(energy, 0, 255, 0, 20) * 2;
         this.menu(h);
       }
-       //marquee text for currently playing song
+      //marquee text for currently playing song
       stroke(255);
-      text("Currently Playing: " + buttonNames[selectSong], marquee -= 2, height-50);
+      text(
+        "Currently Playing: " + buttonNames[selectSong],
+        (marquee -= 2),
+        height - 50
+      );
       if (marquee < -width / 4) {
         marquee = width;
       }
-    } else { //hides all the controls when the checkbox is not ticked
+    } else {
+      //hides all the controls when the checkbox is not ticked
       volSlider.hide();
       specSlider.hide();
       checkbox.hide();

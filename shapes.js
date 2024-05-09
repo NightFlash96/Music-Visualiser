@@ -11,7 +11,7 @@ function Shapes() {
 
   this.draw = function () {
     push();
-
+    var level = amplitude.getLevel();
     var currentBin = 0;
     var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
     var h = map(energy, 0, 255, 0, 20) * 2;
@@ -29,11 +29,10 @@ function Shapes() {
     // Update camera position and look at the center of the scene
     camera(camX, camY, camZ, 0, 0, 0, 0, 1, 1);
 
-    for (var i = 0; i < width / 4; i++) {
-      // Increment angle for rotation
-      cam.angle += spectrum[i] / 250000;
-      //fill(spectrum[i], 255 - spectrum[i], 0);
-    }
+    // Increment angle for rotation
+    cam.angle += level * 2;
+    //fill(spectrum[i], 255 - spectrum[i], 0);
+
     noFill();
     stroke(255);
     strokeWeight(1);

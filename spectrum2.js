@@ -21,7 +21,7 @@ function Spectrum2() {
     // loop through all the previous levels
     for (var i = 0; i < prevLevels.length; i++) {
       var x = map(i, prevLevels.length, 0, width / 2, width);
-      var h = map(prevLevels[i], 0, 2.5, minHeight, height - 10);
+      var h = map(prevLevels[i], 0, 0.35, minHeight, height - 10);
 
       var alphaValue = map(i, 0, prevLevels.length, 1, 250);
 

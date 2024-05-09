@@ -52,7 +52,7 @@ function setup() {
   textFont(font);
   normalMaterial();
 
-  volSlider = createSlider(0, 10, 5, 0);
+  volSlider = createSlider(0, 1, 0.5, 0);
   volSlider.position(30, 250);
 
   specSlider = createSlider(1, 100);
@@ -138,7 +138,7 @@ function draw() {
   }
 
   //camera controll
-  orbitControl();
+  // orbitControl();
 
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
@@ -151,7 +151,7 @@ function draw() {
   stroke(255);
   for (s of stars) {
     strokeWeight(min(map(amplitude.getLevel(), 0, 0.5, 0, s.d), 25));
-    point(s.v.x, s.v.y, (s.v.z += amplitude.getLevel() * 50));
+    point(s.v.x, s.v.y, (s.v.z += amplitude.getLevel() * 150));
     if (s.v.z > 2000) {
       s.v = p5.Vector.random3D().mult(random(1200, 1500));
       s.v.z = -2000;
@@ -166,6 +166,8 @@ function hideMenu() {
 
 function mouseClicked() {
   controls.mousePressed();
+  controls.mousePressed1();
+  controls.mousePressed2();
 }
 
 function keyPressed() {

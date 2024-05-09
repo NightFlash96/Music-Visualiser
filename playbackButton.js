@@ -11,6 +11,7 @@ function PlaybackButton() {
 
   this.draw = function () {
     if (this.playing) {
+      //pause button
       rect(this.x, this.y, this.width / 2 - 2, this.height);
       rect(
         this.x + (this.width / 2 + 2),
@@ -18,6 +19,7 @@ function PlaybackButton() {
         this.width / 2 - 2,
         this.height
       );
+      //skip button
       triangle(
         this.x + 40,
         this.y,
@@ -27,6 +29,7 @@ function PlaybackButton() {
         this.y + this.height
       );
       rect(this.x + 40 + this.width, this.y, 5, this.height);
+      //rewind button
       triangle(
         this.x - 40 + this.width,
         this.y,
@@ -37,6 +40,7 @@ function PlaybackButton() {
       );
       rect(this.x - 45, this.y, 5, this.height);
     } else {
+      //play button
       triangle(
         this.x,
         this.y,
@@ -45,6 +49,7 @@ function PlaybackButton() {
         this.x,
         this.y + this.height
       );
+      //skip button
       triangle(
         this.x + 40,
         this.y,
@@ -54,6 +59,7 @@ function PlaybackButton() {
         this.y + this.height
       );
       rect(this.x + 40 + this.width, this.y, 5, this.height);
+      //rewind button
       triangle(
         this.x - 40 + this.width,
         this.y,
@@ -79,6 +85,38 @@ function PlaybackButton() {
       keycode == 32
     ) {
       this.playing = !this.playing;
+      return true;
+    }
+    return false;
+  };
+
+  this.hitCheckSkip = function () {
+    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
+    if (
+      mouseX > this.x + 40 &&
+      mouseX < this.x + this.width + 40 &&
+      mouseY > this.y &&
+      mouseY < this.y + this.height
+    ) {
+      if (this.playing == false) {
+        this.playing = !this.playing;
+      }
+      return true;
+    }
+    return false;
+  };
+
+  this.hitCheckRewind = function () {
+    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
+    if (
+      mouseX > this.x - 40 &&
+      mouseX < this.x + this.width - 40 &&
+      mouseY > this.y &&
+      mouseY < this.y + this.height
+    ) {
+      if (this.playing == false) {
+        this.playing = !this.playing;
+      }
       return true;
     }
     return false;
