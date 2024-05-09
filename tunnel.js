@@ -35,8 +35,6 @@ function Tunnel() {
         this.zpos
       );
       rect(0, 0, width, height);
-      textSize(32);
-      text(this.zpos, 0, 0);
       pop();
     }
 
