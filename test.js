@@ -21,12 +21,16 @@ function Test() {
 
     display() {
       push();
-      stroke(255);
-      strokeWeight(2);
+      stroke(map(sin(millis() / 5000), -1, 1, 0, 255), 0, map(cos(millis() / 5000), -1, 1, 0, 255), map(this.zpos, -10000, 0, 0, 255));
+      strokeWeight(4);
       noFill();
-      translate(0, 0, this.zpos);
+      //translate(0, 0, this.zpos);
+      translate((-this.zpos) * (this.zpos/8000) * sin(millis() / 5000), this.zpos * cos(millis() / 5000)/2, this.zpos);
       rect(0, 0, width, height);
+      textSize(32);
+      text(this.zpos, 0, 0);
       pop();
+      
     }
 
     isDone() {
