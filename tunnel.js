@@ -1,96 +1,68 @@
 function Tunnel() {
-  this.name = "tunnel";
+  this.name = "tunnel ";
+
+  let queue = [];
+  let framecount = 0;
+  let level;
+
+  smooth();
 
   class LandSlice {
     constructor() {
       this.spectrum = fourier.analyze();
-      this.array1 = [];
-      this.array2 = [];
-      this.zpos = 0;
+      // this.array1 = []; //this didn't work
+      // this.array2 = []; //it would constantly increase the size of the array
+      this.zpos = -10000;
     }
 
     update() {
-      this.zpos += 1;
+      this.zpos += level * 1000;
     }
 
     display() {
-      noStroke();
-
-      for (let i = 0; i < spectrum.length; i = i + 20) {
-        array1.push(spectrum[i]); //creates array of every 20th element of spectrum
-      }
-      array2 = array1.slice().reverse(); //creates a copy of array1 in reverse order
-
-      let bitWidth = width / this.array1.length; //spacing between each bit (peak)
-
-      fill(255);
-
-      beginShape();
-      vertex(0, height);
-
-      for (var i = 1; i < array1.length; i++) {
-        //draws the initial spectrum
-        let amp = array1[i];
-        let bitHeight = map(amp, 0, 256, height, 0);
-        vertex((bitWidth / 2) * i, bitHeight);
-      }
-
-      vertex(width / 2, height);
-
-      for (var j = 1; j < array2.length; j++) {
-        //draws the mirrored spectrum
-        let amp = array2[j];
-        let bitHeight = map(amp, 0, 256, height, 0);
-        vertex(width / 2 + (bitWidth / 2) * j, bitHeight);
-      }
-
-      vertex(width, height);
-      endShape(CLOSE);
+      push();
+      stroke(
+        map(sin(millis() / 5000), -1, 1, 0, 255),
+        map(cos(millis() / 5000), -1, 1, 0, 128),
+        map(cos(millis() / 5000), -1, 1, 0, 255)
+      );
+      strokeWeight(10);
+      noFill();
+      //translate(0, 0, this.zpos);
+      translate(
+        -this.zpos * (this.zpos / 8000) * sin(millis() / 5000),
+        (this.zpos * cos(millis() / 5000)) / 2,
+        this.zpos
+      );
+      rect(0, 0, width, height);
+      textSize(32);
+      text(this.zpos, 0, 0);
+      pop();
     }
+
     isDone() {
-      return this.zpos >= 100;
+      return this.zpos >= 0;
     }
   }
 
   this.draw = function () {
     push();
-    colorMode(HSB);
-    var spectrum = fourier.analyze();
-    noStroke();
 
-    let array1 = [];
-    let array2 = [];
+    level = amplitude.getLevel();
 
-    // let n = slider.value();
-    for (let i = 0; i < spectrum.length; i = i + 20) {
-      array1.push(spectrum[i]);
-      // array2.push(spectrum[spectrum.length - i]);
+    framecount++;
+    if (framecount % 10 == 0 && level > 0) {
+      queue.push(new LandSlice());
     }
-    array2 = array1.slice().reverse();
+    console.log(queue.length);
 
-    let bitWidth = width / array1.length;
-
-    fill(255);
-
-    beginShape();
-    vertex(0, height);
-    for (var i = 1; i < array1.length; i++) {
-      let amp = array1[i];
-      let bitHeight = map(amp, 0, 256, height, 0);
-
-      vertex((bitWidth / 2) * i, bitHeight);
+    for (let i = queue.length - 1; i >= 0; i--) {
+      queue[i].update();
+      queue[i].display();
+      if (queue[i].isDone()) {
+        queue.splice(i, 1); // remove LandSlice from queue when it's done
+      }
     }
-    vertex(width / 2, height);
-
-    for (var j = 1; j < array2.length; j++) {
-      let amp = array2[j];
-      let bitHeight = map(amp, 0, 256, height, 0);
-
-      vertex(width / 2 + (bitWidth / 2) * j, bitHeight);
-    }
-    vertex(width, height);
-    endShape(CLOSE);
-
     pop();
   };
 }
