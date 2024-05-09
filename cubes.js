@@ -15,7 +15,7 @@ function Cubes() {
     translate(
       width / 2 - (this.cols * this.boxSize) / 2, //x position
       175, //y position
-      -250 //z position
+      -350 //z position
     );
 
     // Draws the grid of boxes

@@ -72,7 +72,7 @@ function Land() {
     }
 
     isDone() {
-      return this.zpos >= 200;
+      return this.zpos >= 400;
     }
   }
 
