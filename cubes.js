@@ -4,7 +4,7 @@ function Cubes() {
   this.numBoxes = 900;
   this.cols = 40;
   this.rows = ceil(this.numBoxes / this.cols);
-  this.boxSize = width*0.75 / this.cols;
+  this.boxSize = (width * 0.75) / this.cols;
 
   this.draw = function () {
     push();
@@ -14,7 +14,7 @@ function Cubes() {
     // translate(this.cols * this.boxSize, this.rows * this.boxSize, 0);
     translate(
       width / 2 - (this.cols * this.boxSize) / 2, //x position
-      350, //y position
+      175, //y position
       -250 //z position
     );
 
