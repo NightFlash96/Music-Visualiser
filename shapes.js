@@ -3,6 +3,8 @@ function Shapes() {
   //name of the visualisation
   this.name = "shapes";
 
+  noSmooth();
+
   this.value = 0; //some value for the orbit idk bruh
 
   //frquencies used by the energyfunction to retrieve a value
