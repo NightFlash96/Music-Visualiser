@@ -1,5 +1,5 @@
-function Spectrum2() {
-  this.name = "spectrum2";
+function Amplitude() {
+  this.name = "amplitude";
 
   this.draw = function () {
     var level = amplitude.getLevel();

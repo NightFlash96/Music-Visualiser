@@ -50,7 +50,7 @@ function Title() {
       //   fill(1 + j * 20, 255 - j * 20);
       translate(j, 0, j);
       rotate(cos(millis() / 400) / 40);
-      for (i = 0; i < 9; i++) {
+      for (i = 0; i < 8; i++) {
         text(i + 1 + ": " + vis.visuals[i].name, width / 2.3, 220 + i * 35);
       }
       pop();

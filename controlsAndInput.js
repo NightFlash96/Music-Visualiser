@@ -22,6 +22,9 @@ function ControlsAndInput() {
 
   let marquee = width;
 
+  let beatDecay = 0;
+  let wait = 30;
+
   let buttonNames = [
     "Stomper reggae",
     "Aerodynamic",
@@ -68,7 +71,7 @@ function ControlsAndInput() {
     }
     fourier.setInput(sound[selectSong]);
     amplitude.setInput(sound[selectSong]);
-    amplitude.smooth(0.6);
+    amplitude.smooth(0.9);
     if (this.playbackButton.playing) {
       sound[selectSong].loop();
     }
@@ -92,8 +95,8 @@ function ControlsAndInput() {
   let visNumber = 0;
   const keyboardController = (keycode) => {
     {
-      // console.log(keycode);
-      if (keycode > 48 && keycode < 58) {
+      console.log(keycode);
+      if (keycode > 48 && keycode < 57) {
         visNumber = keycode - 49;
         vis.selectVisual(vis.visuals[visNumber].name);
         this.mainMenuDisplayed = true;
@@ -156,17 +159,27 @@ function ControlsAndInput() {
     keyboardController(keycode);
   };
 
-  this.beatDetection = function () {
-    if (level > 0.2) {
+  this.beatDetection = function (level) {
+    if (level > beatDecay && level > 0.1) {
+      beatDecay = level * 1.5;
+      wait = 30;
       return true;
+    } else {
+      if (wait >= 0) {
+        wait--;
+      } else {
+        beatDecay *= 0.9;
+        beatDecay = max(beatDecay, 0.1);
+      }
+      return false;
     }
-    return false;
   };
 
   //draws the playback button and potentially the menu
   this.draw = function () {
     push();
     level = amplitude.getLevel();
+    // console.log(this.beatDetection(level));
     fill("white");
     stroke("black");
     strokeWeight(2);
@@ -256,7 +269,7 @@ function ControlsAndInput() {
       fill(255, 1 + j * 15, 1 + j * 15);
       translate(0, 0, j);
       rotate(cos(millis() / 400) / 40);
-      for (i = 0; i < 9; i++) {
+      for (i = 0; i < 8; i++) {
         text(i + 1 + ":" + vis.visuals[i].name, 25 + newArr[i], 95);
       }
       pop();

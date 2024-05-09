@@ -72,7 +72,6 @@ function setup() {
 
   mic = new p5.AudioIn();
   mic.stop();
-  // mic.start();
 
   //instantiate the fft object
   fourier = new p5.FFT();
@@ -95,12 +94,11 @@ function setup() {
   vis = new Visualisations();
   vis.add(new Title());
   vis.add(new Spectrum());
-  vis.add(new Spectrum2());
-  vis.add(new WavePattern());
+  vis.add(new Amplitude());
+  vis.add(new Land());
   vis.add(new Needles());
   vis.add(new Shapes());
-  vis.add(new Shapes2());
-  vis.add(new Test());
+  vis.add(new Tunnel());
   vis.add(new Cubes());
 
   for (let i = 0; i < 100; i++) {
@@ -138,7 +136,7 @@ function draw() {
   }
 
   //camera controll
-  // orbitControl();
+  orbitControl();
 
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
