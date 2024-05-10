@@ -65,15 +65,17 @@ function ControlsAndInput() {
   });
 
   this.soundPlaying = function (songId) {
-    selectSong = songId;
-    for (let i in buttons) {
-      sound[i].pause();
-    }
-    fourier.setInput(sound[selectSong]);
-    amplitude.setInput(sound[selectSong]);
-    amplitude.smooth(0.9);
-    if (this.playbackButton.playing) {
-      sound[selectSong].loop();
+    if (selectSong != songId) {
+      selectSong = songId;
+      for (let i in buttons) {
+        sound[i].pause();
+      }
+      fourier.setInput(sound[selectSong]);
+      amplitude.setInput(sound[selectSong]);
+      amplitude.smooth(0.9);
+      if (this.playbackButton.playing) {
+        sound[selectSong].loop();
+      }
     }
   };
   this.soundPlaying(0);
