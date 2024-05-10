@@ -32,7 +32,7 @@ function Shapes() {
     camera(camX, camY, camZ, 0, 0, 0, 0, 1, 1);
 
     // Increment angle for rotation
-    cam.angle += level * 2;
+    cam.angle += level / 2;
     //fill(spectrum[i], 255 - spectrum[i],  0);
 
     noFill();
@@ -52,9 +52,9 @@ function Shapes() {
     push();
     //translate(500*sin(millis()/1000), 0, 500*cos(millis()/1000));
     translate(
-      500 * sin((this.value += level * 2)),
+      500 * sin((this.value += level / 2)),
       0,
-      500 * cos((this.value += level * 2))
+      500 * cos((this.value += level / 2))
     );
     currentBin = 3;
     sphere(h + 40);
