@@ -18,7 +18,7 @@ function ControlsAndInput() {
 
   let newArr = [0, 110, 260, 420, 520, 655, 780, 905];
 
-  let selectSong = 0;
+  let selectSong;
 
   let marquee = width;
 
@@ -65,7 +65,7 @@ function ControlsAndInput() {
   });
 
   this.soundPlaying = function (songId) {
-    if (selectSong != songId) {
+    if (songId != selectSong) {
       selectSong = songId;
       for (let i in buttons) {
         sound[i].pause();
@@ -73,6 +73,7 @@ function ControlsAndInput() {
       fourier.setInput(sound[selectSong]);
       amplitude.setInput(sound[selectSong]);
       amplitude.smooth(0.9);
+
       if (this.playbackButton.playing) {
         sound[selectSong].loop();
       }
@@ -114,14 +115,12 @@ function ControlsAndInput() {
     if (this.playbackButton.hitCheckSkip()) {
       if (selectSong > buttonNames.length - 2) {
         sound[selectSong].pause();
-        selectSong = 0;
-        sound[selectSong].stop();
-        this.soundPlaying(selectSong);
+        sound[0].stop();
+        this.soundPlaying(0);
       } else {
         sound[selectSong].pause();
-        selectSong += 1;
-        sound[selectSong].stop();
-        this.soundPlaying(selectSong);
+        sound[selectSong + 1].stop();
+        this.soundPlaying(selectSong + 1);
       }
     }
   };
@@ -130,14 +129,12 @@ function ControlsAndInput() {
     if (this.playbackButton.hitCheckRewind()) {
       if (selectSong < 1) {
         sound[selectSong].pause();
-        selectSong = buttonNames.length - 1;
-        sound[selectSong].stop();
-        this.soundPlaying(selectSong);
+        sound[buttonNames.length - 1].stop();
+        this.soundPlaying(buttonNames.length - 1);
       } else {
         sound[selectSong].pause();
-        selectSong -= 1;
-        sound[selectSong].stop();
-        this.soundPlaying(selectSong);
+        sound[selectSong - 1].stop();
+        this.soundPlaying(selectSong - 1);
       }
     }
   };
