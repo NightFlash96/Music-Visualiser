@@ -269,7 +269,8 @@ function ControlsAndInput() {
       volSlider.hide();
       specSlider.hide();
       hueSlider.hide();
-      spaceSplider.hide();
+      spaceSlider.hide();
+      thickSlider.hide();
       checkbox.hide();
       input.hide();
       for (let i in buttons) {
