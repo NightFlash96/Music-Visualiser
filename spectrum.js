@@ -18,8 +18,6 @@ function Spectrum() {
     spectrum = newArr;
     let w = width / spectrum.length;
 
-    fill(0, 255, 0);
-
     for (var i = 0; i < spectrum.length; i++) {
       // var x = map(i, 0, spectrum.length, 0, width);
       // var h = -height + map(spectrum[i], 0, 255, height, 0);
@@ -29,7 +27,7 @@ function Spectrum() {
 
       // var y = map(i * 2.5, 0, spectrum.length, 0, height);
       // var w = map(spectrum[i], 0, 255, 0, width);
-      fill(spectrum[i], 100, 100);
+      fill(spectrum[i] + hueSlider.value(), 100, 100);
       rect(i * w, y / 2, w - 10 / 50, height - y - 1);
     }
 

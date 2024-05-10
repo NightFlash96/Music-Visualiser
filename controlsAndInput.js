@@ -16,7 +16,7 @@ function ControlsAndInput() {
 
   var level;
 
-  let newArr = [0, 110, 260, 420, 610, 750, 880, 1020, 1120];
+  let newArr = [0, 110, 260, 420, 520, 655, 780, 905];
 
   let selectSong = 0;
 
@@ -104,11 +104,6 @@ function ControlsAndInput() {
 
       if (visNumber == 0) {
         this.mainMenuDisplayed = false;
-      }
-
-      if (visNumber == 1) {
-        specSlider.show();
-        text("Spectrum", 25, 290);
       }
     }
   };
@@ -203,11 +198,46 @@ function ControlsAndInput() {
       text("Volume:", 25, 250);
       volSlider.show();
       if (visNumber == 1) {
-        text("Spectrum", 25, 290);
+        text("Spectrum", 25, 330);
         specSlider.show();
+        hueSlider.show();
+        text("Hue", 25, 290);
       } else {
         specSlider.hide();
+        hueSlider.hide();
       }
+      if (visNumber == 2) {
+        spaceSlider.show();
+        text("Spacing", 25, 330);
+        hueSlider.show();
+        text("Hue", 25, 290);
+      } else {
+        spaceSlider.hide();
+        // hueSlider.hide();
+      }
+      if (visNumber == 3) {
+        spaceSlider.show();
+        text("Spacing", 25, 330);
+        thickSlider.show();
+        text("Thickness", 25, 290);
+      } else {
+        thickSlider.hide();
+      }
+      if (visNumber == 5) {
+        thickSlider.show();
+        text("Thickness", 25, 290);
+      }
+      if (visNumber == 6) {
+        spaceSlider.show();
+        text("Spacing", 25, 330);
+        thickSlider.show();
+        text("Thickness", 25, 290);
+      }
+      if (visNumber == 7) {
+        thickSlider.show();
+        text("Thickness", 25, 290);
+      }
+
       this.songlist(h);
       for (let i in buttons) {
         buttons[i].show();
@@ -238,6 +268,8 @@ function ControlsAndInput() {
       //hides all the controls when the checkbox is not ticked
       volSlider.hide();
       specSlider.hide();
+      hueSlider.hide();
+      spaceSplider.hide();
       checkbox.hide();
       input.hide();
       for (let i in buttons) {

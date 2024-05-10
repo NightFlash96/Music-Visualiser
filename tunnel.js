@@ -12,7 +12,7 @@ function Tunnel() {
       this.spectrum = fourier.analyze();
       // this.array1 = []; //this didn't work
       // this.array2 = []; //it would constantly increase the size of the array
-      this.zpos = -10000;
+      this.zpos = -5500;
     }
 
     update() {
@@ -26,7 +26,7 @@ function Tunnel() {
         map(cos(millis() / 5000), -1, 1, 0, 128),
         map(cos(millis() / 5000), -1, 1, 0, 255)
       );
-      strokeWeight(10);
+      strokeWeight(thickSlider.value());
       noFill();
       //translate(0, 0, this.zpos);
       translate(
@@ -51,7 +51,7 @@ function Tunnel() {
     level = amplitude.getLevel();
 
     framecount++;
-    if (framecount % 10 == 0 && level > 0) {
+    if (framecount % spaceSlider.value() == 0 && level > 0) {
       queue.push(new LandSlice());
     }
     console.log(queue.length);

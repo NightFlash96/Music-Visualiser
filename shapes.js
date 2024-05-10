@@ -33,11 +33,11 @@ function Shapes() {
 
     // Increment angle for rotation
     cam.angle += level * 2;
-    //fill(spectrum[i], 255 - spectrum[i], 0);
+    //fill(spectrum[i], 255 - spectrum[i],  0);
 
     noFill();
     stroke(255);
-    strokeWeight(1);
+    strokeWeight(thickSlider.value());
     sphere(200);
 
     //rotateX(PI / 2);
@@ -52,11 +52,12 @@ function Shapes() {
     push();
     //translate(500*sin(millis()/1000), 0, 500*cos(millis()/1000));
     translate(
-      500 * sin((this.value += spectrum[i] / 50)),
+      500 * sin((this.value += level * 2)),
       0,
-      500 * cos((this.value += spectrum[i] / 50))
+      500 * cos((this.value += level * 2))
     );
-    sphere(50);
+    currentBin = 3;
+    sphere(h + 40);
     pop();
 
     // for (var i = 0; i < width / 4; i++) {

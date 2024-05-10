@@ -27,6 +27,9 @@ let input;
 
 let specSlider;
 let volSlider;
+let hueSlider;
+let spaceSlider;
+let thickSlider;
 
 let checkbox;
 
@@ -56,8 +59,20 @@ function setup() {
   volSlider.position(30, 250);
 
   specSlider = createSlider(1, 100, 1);
-  specSlider.position(30, 290);
+  specSlider.position(30, 330);
   specSlider.hide();
+
+  spaceSlider = createSlider(1, 50, 20);
+  spaceSlider.position(30, 330);
+  spaceSlider.hide();
+
+  hueSlider = createSlider(0, 225, 0);
+  hueSlider.position(30, 290);
+  hueSlider.hide();
+
+  thickSlider = createSlider(1, 10, 1);
+  thickSlider.position(30, 290);
+  thickSlider.hide();
 
   checkbox = createCheckbox();
   checkbox.position(130, 206);
@@ -136,7 +151,7 @@ function draw() {
   }
 
   //camera controll
-  orbitControl();
+  // orbitControl();
 
   //draw the selected visualisation
   translate(-width / 2, -height / 2);
@@ -147,6 +162,7 @@ function draw() {
   push();
   translate(width / 2, height / 2);
   stroke(255);
+
   for (s of stars) {
     strokeWeight(min(map(amplitude.getLevel(), 0, 0.5, 0, s.d), 25));
     point(s.v.x, s.v.y, (s.v.z += amplitude.getLevel() * 150));

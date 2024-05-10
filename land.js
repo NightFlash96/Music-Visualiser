@@ -1,5 +1,5 @@
 function Land() {
-  this.name = "test";
+  this.name = "land";
 
   let queue = [];
 
@@ -11,7 +11,7 @@ function Land() {
     }
 
     update() {
-      this.zpos += 10;
+      this.zpos += spaceSlider.value();
     }
 
     display() {
@@ -48,10 +48,10 @@ function Land() {
 
       let bitWidth = (width + 400) / this.array1.length; //spacing between each bit (peak)
 
+      push();
       stroke(map(this.zpos, -500, 400, 0, 255), 50, 255);
       noFill();
-
-      push();
+      strokeWeight(thickSlider.value());
       translate(0, 0, 0);
       beginShape();
       vertex(-200, height, this.zpos);

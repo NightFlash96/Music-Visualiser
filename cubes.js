@@ -29,6 +29,7 @@ function Cubes() {
         // noFill();
         fill(0);
         stroke(val, 0, 255 - val);
+        strokeWeight(thickSlider.value());
         box(this.boxSize, this.boxSize, val);
         pop();
       }

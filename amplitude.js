@@ -1,14 +1,13 @@
 function Amplitude() {
   this.name = "amplitude";
-
   this.draw = function () {
+    push();
     var level = amplitude.getLevel();
     var spectrum = fourier.analyze();
 
     // rectangle variables
 
-    var spacing = 10;
-    var w = width / (prevLevels.length * spacing);
+    var w = width / (prevLevels.length * spaceSlider.value());
 
     var minHeight = 2;
 
@@ -25,10 +24,12 @@ function Amplitude() {
 
       var alphaValue = map(i, 0, prevLevels.length, 1, 250);
 
-      fill(255, 255, 255, alphaValue);
+      colorMode(HSB);
+      fill(hueSlider.value(), 100, 100, alphaValue);
 
       rect(x, height - h, w, h - 250);
       rect(width - x, height - h, w, h - 250);
     }
+    pop();
   };
 }
