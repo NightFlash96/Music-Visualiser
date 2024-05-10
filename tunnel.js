@@ -35,8 +35,6 @@ function Tunnel() {
         this.zpos
       );
       rect(0, 0, width, height);
-      textSize(32);
-      text(this.zpos, 0, 0);
       pop();
     }
 
@@ -54,7 +52,7 @@ function Tunnel() {
     if (framecount % spaceSlider.value() == 0 && level > 0) {
       queue.push(new LandSlice());
     }
-    console.log(queue.length);
+   
 
     for (let i = queue.length - 1; i >= 0; i--) {
       queue[i].update();

@@ -27,8 +27,8 @@ function ControlsAndInput() {
 
   let buttonNames = [
     "Stomper reggae",
-    "Aerodynamic",
-    "Voyager",
+    "Virtual Insanity",
+    "Digital Love",
     "Nirvana",
     "Blow me away",
     "G.O.A.T",
