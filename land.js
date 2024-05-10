@@ -23,9 +23,9 @@ function Land() {
       ellipse(width / 2, (height * 3) / 4, 1000 + amplitude.getLevel() * 1000); //draws the sun responds to current amplitde
       translate(0, 0, 5);
       fill(0);
-      rect(0, height * 1.23, width, height); //covers the sun below the horizon
+      rect(0, height * 1.23, width * 10, height); //covers the sun below the horizon
       for (let i = 0; i < 6; i++) {
-        rect(0, height * 1.2 - i * 75, width, 75 / i); //draws the lines across the sun
+        rect(0, height * 1.2 - i * 75, width * 10, 75 / i); //draws the lines across the sun
       }
       pop();
 
