@@ -4,31 +4,24 @@ function Spectrum() {
   this.draw = function () {
     push();
     colorMode(HSB);
-    var spectrum = fourier.analyze();
+    var spectrum = fourier.analyze(); //creates the frequency spectrum of the instant the object is created
     noStroke();
 
-    let newArr = [];
+    let newArr = []; //new empty array
 
-    // let n = slider.value();
     for (let i = 0; i < spectrum.length; i = i + specSlider.value()) {
-      newArr.push(spectrum[i]);
+      newArr.push(spectrum[i]); //skips through items in the array dependant on spectrum slider and pushes it to new array
     }
 
-    // console.log(spectrum.length);
-    spectrum = newArr;
-    let w = width / spectrum.length;
+    spectrum = newArr; //spectrum becomes the new array
+
+    let w = width / spectrum.length; //length of the array fit into width of screen
 
     for (var i = 0; i < spectrum.length; i++) {
-      // var x = map(i, 0, spectrum.length, 0, width);
-      // var h = -height + map(spectrum[i], 0, 255, height, 0);
-      // rect(x, height, width / spectrum.length, h);
       let amp = spectrum[i];
-      let y = map(amp, 0, 256, height, 0);
-
-      // var y = map(i * 2.5, 0, spectrum.length, 0, height);
-      // var w = map(spectrum[i], 0, 255, 0, width);
-      fill(spectrum[i] + hueSlider.value(), 100, 100);
-      rect(i * w, y / 2, w - 10 / 50, height - y - 1);
+      let y = map(amp, 0, 256, height, 0); //map hight
+      fill(spectrum[i] + hueSlider.value(), 100, 100); //hue slider that reacts to amplitude
+      rect(i * w, y / 2, w - 10 / 50, height - y - 1); //spectrum with a mirror below
     }
 
     pop();

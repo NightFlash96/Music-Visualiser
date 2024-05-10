@@ -1,11 +1,18 @@
-//constructor function to draw a
 function Shapes() {
-  //name of the visualisation
   this.name = "shapes";
 
   noSmooth();
 
-  this.value = 0; //some value for the orbit idk bruh
+  //camera
+  let cam = {
+    angle: 0,
+    radius: 100,
+    rotationSpeed: 0.03,
+    distance: 500,
+    altitude: 20,
+  };
+
+  this.value = 0;
 
   //frquencies used by the energyfunction to retrieve a value
   //for each plot.
@@ -13,36 +20,33 @@ function Shapes() {
 
   this.draw = function () {
     push();
-    var level = amplitude.getLevel();
+    var level = amplitude.getLevel(); //returns an amplitude reading at the moment it is called
     var currentBin = 0;
     var energy = fourier.getEnergy(this.frequencyBins[currentBin]);
-    var h = map(energy, 0, 255, 0, 20) * 2;
+    var h = map(energy, 0, 255, 0, 20) * 2; // maps energy from bin
 
-    //create an array amplitude values from the fft.
+    //create an array amplitude values from the fft (for menu)
     var spectrum = fourier.analyze();
-    //iterator for selecting frequency bin.
 
     fill(0, 255, 0);
-    // Calculate camera position based on angle and radius
+    // Calculates the camera position based on angle and radius
     let camX = cam.radius * cos(cam.angle);
     let camY = cam.radius * sin(cam.angle) - cam.altitude;
     let camZ = cam.distance * sin(cam.angle) + cam.distance * 2;
 
-    // Update camera position and look at the center of the scene
+    // Updates the camera position
     camera(camX, camY, camZ, 0, 0, 0, 0, 1, 1);
 
     // Increment angle for rotation
     cam.angle += level / 2;
-    //fill(spectrum[i], 255 - spectrum[i],  0);
 
     noFill();
     stroke(255);
-    strokeWeight(thickSlider.value());
-    sphere(200);
+    strokeWeight(thickSlider.value()); //thickness slider
+    sphere(200); //draws the planet
 
-    //rotateX(PI / 2);
-    //ellipse(0,0, 700);
     for (j = 0; j < h + 1; j++) {
+      //draws the rings around the planet
       push();
       rotateX(PI / 2);
       ellipse(0, 0, 700 + j * 10, 700 + j * 10, 50);
@@ -50,21 +54,15 @@ function Shapes() {
     }
 
     push();
-    //translate(500*sin(millis()/1000), 0, 500*cos(millis()/1000));
+    //translation to move moon around the planet
     translate(
       500 * sin((this.value += level / 2)),
       0,
       500 * cos((this.value += level / 2))
     );
-    currentBin = 3;
-    sphere(h + 40);
-    pop();
 
-    // for (var i = 0; i < width / 4; i++) {
-    //   // console.log(energy);
-    //   noFill();
-    //   stroke(spectrum[i], 255 - spectrum[i], 0);
-    // }
+    sphere(h + 40); //draws the moon
+    pop();
     pop();
   };
 }

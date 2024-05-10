@@ -76,7 +76,6 @@ function PlaybackButton() {
   //@returns true if clicked false otherwise.
 
   this.hitCheck = function (keycode = undefined) {
-    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
     if (
       (mouseX > this.x &&
         mouseX < this.x + this.width &&
@@ -90,8 +89,10 @@ function PlaybackButton() {
     return false;
   };
 
+  //checks for clicks on the skip button, skips to start of next track;
+  //@returns true if clicked false otherwise.
+
   this.hitCheckSkip = function () {
-    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
     if (
       mouseX > this.x + 40 &&
       mouseX < this.x + this.width + 40 &&
@@ -106,8 +107,10 @@ function PlaybackButton() {
     return false;
   };
 
+  //checks for clicks on the rewind button, rewinds to start of track before;
+  //@returns true if clicked false otherwise.
+
   this.hitCheckRewind = function () {
-    // text(j + 1 + ":" + soundName[j], width - 225, 170 + j * 35);
     if (
       mouseX > this.x - 40 &&
       mouseX < this.x + this.width - 40 &&

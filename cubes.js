@@ -1,17 +1,15 @@
 function Cubes() {
   this.name = "cubes";
 
-  this.numBoxes = 900;
-  this.cols = 40;
-  this.rows = ceil(this.numBoxes / this.cols);
-  this.boxSize = (width * 0.75) / this.cols;
+  this.numBoxes = 900; // Number of boxes being drawn
+  this.cols = 40; // Number of columns
+  this.rows = ceil(this.numBoxes / this.cols); // Number of rows is calculated based on the number of columns
+  this.boxSize = (width * 0.75) / this.cols; // Size of each box depending on the width of the canvas
 
   this.draw = function () {
     push();
-    var spectrum = fourier.analyze();
-    //smooth();
+    var spectrum = fourier.analyze(); // Creates an array of amplitude values from the fft
 
-    // translate(this.cols * this.boxSize, this.rows * this.boxSize, 0);
     translate(
       width / 2 - (this.cols * this.boxSize) / 2, //x position
       175, //y position
@@ -23,13 +21,12 @@ function Cubes() {
     for (let y = 0; y < this.rows; y++) {
       for (let x = 0; x < this.cols; x++) {
         let i = x + y * this.cols;
-        let val = spectrum[i];
+        let val = spectrum[i]; //value determines the height of the box
         push();
         translate(x * this.boxSize, y * this.boxSize, val / 2);
-        // noFill();
         fill(0);
-        stroke(val, 0, 255 - val);
-        strokeWeight(thickSlider.value());
+        stroke(val, 0, 255 - val); //stroke colour changes depending on the amplitude
+        strokeWeight(thickSlider.value()); //thickness slider
         box(this.boxSize, this.boxSize, val);
         pop();
       }
