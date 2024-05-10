@@ -36,7 +36,7 @@ function preload() {
   sound1 = loadSound("assets/stomper_reggae_bit.mp3");
   sound2 = loadSound("assets/jamiroquai.mp3");
   sound3 = loadSound("assets/digital_love.mp3");
-  sound4 = loadSound("assets/nirvana.flac");
+  sound4 = loadSound("assets/nirvana.mp3");
   sound5 = loadSound("assets/Blow Me Away.mp3");
   sound6 = loadSound("assets/Goat.mp3");
   sound7 = loadSound("assets/dial_up.mp3");
