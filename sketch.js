@@ -42,7 +42,7 @@ function preload() {
   sound4 = loadSound("assets/nirvana.mp3");
   sound5 = loadSound("assets/Blow Me Away.mp3");
   sound6 = loadSound("assets/Goat.mp3");
-  sound7 = loadSound("assets/dial_up.mp3");
+  sound7 = loadSound("assets/Silence.mp3");
   sound8 = loadSound("assets/odyssey.mp3");
 
   font = loadFont("assets/inconsolata.regular.ttf");
