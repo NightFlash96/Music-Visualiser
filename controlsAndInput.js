@@ -14,11 +14,18 @@ function ControlsAndInput() {
   //create an array amplitude values from the fft.
   var spectrum = fourier.analyze();
 
+  // variable to store an amplitude reading
+  let level;
+
   //array for menu item spacings
   let newArr = [0, 110, 260, 420, 520, 655, 780, 905];
 
   //current selected song
   let selectSong;
+
+  //beat detection
+  let beatDecay = 0;
+  let threshhold = 0.05;
 
   //marquee that will move accross the screen
   let marquee = width;
@@ -109,16 +116,14 @@ function ControlsAndInput() {
   //controls selected visuals
   let visNumber = 0;
   const keyboardController = (keycode) => {
-    {
-      if (keycode > 48 && keycode < 57) {
-        visNumber = keycode - 49;
-        vis.selectVisual(vis.visuals[visNumber].name); //show selected visual
-        this.mainMenuDisplayed = true; //small title is displayed
-      }
+    if (keycode > 48 && keycode < 57) {
+      visNumber = keycode - 49;
+      vis.selectVisual(vis.visuals[visNumber].name); //show selected visual
+      this.mainMenuDisplayed = true; //small title is displayed
+    }
 
-      if (visNumber == 0) {
-        this.mainMenuDisplayed = false; //small title is not displayed on title visual
-      }
+    if (visNumber == 0) {
+      this.mainMenuDisplayed = false; //small title is not displayed on title visual
     }
   };
 
@@ -166,6 +171,17 @@ function ControlsAndInput() {
     keyboardController(keycode);
   };
 
+  //beat detection
+  this.beatDetection = function (level) {
+    if (level > beatDecay && level > threshhold) {
+      beatDecay = level * 100; //beatdecay > level
+      return true; //beat detected if amplitude level is above threshhold and decay decays down enough
+    } else {
+      beatDecay *= 0.9; //decay decays
+      return false; //beat not detected
+    }
+  };
+
   //main menu UI draw function
   this.draw = function () {
     //default style
@@ -193,46 +209,48 @@ function ControlsAndInput() {
       input.show();
       text("Mic input:", 25, 220);
       checkbox.show();
-      text("Volume:", 25, 250);
+      text("Random vis on beat:", 25, 250);
+      randbox.show();
+      text("Volume:", 25, 280);
       volSlider.show();
       if (visNumber == 1) {
-        text("Spectrum", 25, 330);
+        text("Spectrum:", 25, 365);
         specSlider.show();
         hueSlider.show();
-        text("Hue", 25, 290);
+        text("Hue:", 25, 325);
       } else {
         specSlider.hide();
         hueSlider.hide();
       }
       if (visNumber == 2) {
         spaceSlider.show();
-        text("Spacing", 25, 330);
+        text("Spacing:", 25, 365);
         hueSlider.show();
-        text("Hue", 25, 290);
+        text("Hue:", 25, 325);
       } else {
         spaceSlider.hide();
       }
       if (visNumber == 3) {
         spaceSlider.show();
-        text("Spacing", 25, 330);
+        text("Spacing:", 25, 365);
         thickSlider.show();
-        text("Thickness", 25, 290);
+        text("Thickness:", 25, 325);
       } else {
         thickSlider.hide();
       }
       if (visNumber == 5) {
         thickSlider.show();
-        text("Thickness", 25, 290);
+        text("Thickness:", 25, 325);
       }
       if (visNumber == 6) {
         spaceSlider.show();
-        text("Spacing", 25, 330);
+        text("Spacing:", 25, 365);
         thickSlider.show();
-        text("Thickness", 25, 290);
+        text("Thickness:", 25, 325);
       }
       if (visNumber == 7) {
         thickSlider.show();
-        text("Thickness", 25, 290);
+        text("Thickness:", 25, 325);
       }
 
       //display song list
@@ -267,6 +285,7 @@ function ControlsAndInput() {
       spaceSlider.hide();
       thickSlider.hide();
       checkbox.hide();
+      randbox.hide();
       input.hide();
       for (let i in buttons) {
         buttons[i].hide();

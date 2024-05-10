@@ -31,6 +31,7 @@ let thickSlider;
 //tickboxes
 let checkbox;
 let hidebox;
+let randbox;
 
 function preload() {
   //songs from assets
@@ -56,22 +57,22 @@ function setup() {
 
   //slider setup
   volSlider = createSlider(0, 1, 0.5, 0);
-  volSlider.position(30, 250);
+  volSlider.position(30, 290);
 
   specSlider = createSlider(1, 100, 1);
-  specSlider.position(30, 330);
+  specSlider.position(30, 370);
   specSlider.hide();
 
   spaceSlider = createSlider(1, 50, 20);
-  spaceSlider.position(30, 330);
+  spaceSlider.position(30, 370);
   spaceSlider.hide();
 
   hueSlider = createSlider(0, 225, 0);
-  hueSlider.position(30, 290);
+  hueSlider.position(30, 330);
   hueSlider.hide();
 
   thickSlider = createSlider(1, 10, 1);
-  thickSlider.position(30, 290);
+  thickSlider.position(30, 330);
   thickSlider.hide();
 
   //tickbox setup
@@ -82,6 +83,9 @@ function setup() {
   hidebox = createCheckbox("", true);
   hidebox.position(width - 50, 25);
   hidebox.changed(hideMenu);
+
+  randbox = createCheckbox();
+  randbox.position(220, 235);
 
   //custom song input
   input = createFileInput(handleSound);
@@ -131,6 +135,7 @@ function setup() {
   }
 }
 
+//handle sound file
 function handleSound(file) {
   // Check the p5.File's type.
   if (file.type === "audio") {
@@ -141,6 +146,7 @@ function handleSound(file) {
   }
 }
 
+//toggles mic input
 function micCheck() {
   if (checkbox.checked()) {
     mic.start(); //if mic checkbox is ticked start mic input
@@ -149,8 +155,21 @@ function micCheck() {
   }
 }
 
+//random visualiser selector
+function randomVis() {
+  if (controls.beatDetection(amplitude.getLevel())) {
+    //if beat is detected
+    let randomNum = floor(random(1, 8));
+    vis.selectVisual(vis.visuals[randomNum].name); //select a random visualiser
+  }
+}
+
 function draw() {
   background(0);
+
+  if (randbox.checked()) {
+    randomVis(); //if random visualiser tick box is ticked do random vis
+  }
 
   if (soundFile) {
     // sound[7].pause();
